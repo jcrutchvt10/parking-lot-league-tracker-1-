@@ -1,0 +1,19 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Editor files
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Build output
+bin/
+obj/

@@ -1,0 +1,15 @@
+{
+  "users": [
+    { "uid": "joe-s", "username": "joe-s", "password": "password123", "displayName": "Joe$", "role": "admin", "handicap": 41, "points": 41.5, "totalRounds": 9, "avgScore": 43.4, "totalPutts": 131, "totalFairways": 13, "totalGIRs": 25, "matchesWon": 2, "matchesTied": 0, "matchesLost": 7 },
+    { "uid": "pops", "username": "pops", "password": "password123", "displayName": "Pops", "role": "player", "handicap": 45, "points": 56.5, "totalRounds": 9, "avgScore": 44.3, "totalPutts": 130, "totalFairways": 16, "totalGIRs": 24, "matchesWon": 4.5, "matchesTied": 0, "matchesLost": 4.5 },
+    { "uid": "ben", "username": "ben", "password": "password123", "displayName": "Ben", "role": "player", "handicap": 49, "points": 54.5, "totalRounds": 9, "avgScore": 46.8, "totalPutts": 94, "totalFairways": 7, "totalGIRs": 11, "matchesWon": 5, "matchesTied": 0, "matchesLost": 4 },
+    { "uid": "spike", "username": "spike", "password": "password123", "displayName": "Spike", "role": "player", "handicap": 46, "points": 60.5, "totalRounds": 9, "avgScore": 43.7, "totalPutts": 108, "totalFairways": 17, "totalGIRs": 17, "matchesWon": 5.5, "matchesTied": 0, "matchesLost": 3.5 },
+    { "uid": "rusty", "username": "rusty", "password": "password123", "displayName": "Rusty", "role": "player", "handicap": 46, "points": 46, "totalRounds": 9, "avgScore": 46.8, "totalPutts": 131, "totalFairways": 23, "totalGIRs": 15, "matchesWon": 3.5, "matchesTied": 0, "matchesLost": 5.5 },
+    { "uid": "colin", "username": "colin", "password": "password123", "displayName": "Colin", "role": "player", "handicap": 45, "points": 58, "totalRounds": 9, "avgScore": 44.2, "totalPutts": 132, "totalFairways": 13, "totalGIRs": 22, "matchesWon": 5, "matchesTied": 0, "matchesLost": 4 },
+    { "uid": "kyle", "username": "kyle", "password": "password123", "displayName": "Kyle", "role": "player", "handicap": 38, "points": 61.5, "totalRounds": 9, "avgScore": 38.6, "totalPutts": 125, "totalFairways": 18, "totalGIRs": 41, "matchesWon": 5.5, "matchesTied": 0, "matchesLost": 3.5 },
+    { "uid": "joe-h", "username": "joe-h", "password": "password123", "displayName": "Joe H", "role": "player", "handicap": 43, "points": 67.5, "totalRounds": 9, "avgScore": 40.7, "totalPutts": 120, "totalFairways": 17, "totalGIRs": 28, "matchesWon": 6.5, "matchesTied": 0, "matchesLost": 2.5 },
+    { "uid": "alex", "username": "alex", "password": "password123", "displayName": "Alex", "role": "player", "handicap": 42, "points": 49, "totalRounds": 9, "avgScore": 41.7, "totalPutts": 127, "totalFairways": 16, "totalGIRs": 24, "matchesWon": 2.5, "matchesTied": 0, "matchesLost": 6.5 },
+    { "uid": "rich", "username": "rich", "password": "password123", "displayName": "Rich", "role": "player", "handicap": 50, "points": 54, "totalRounds": 9, "avgScore": 49.9, "totalPutts": 133, "totalFairways": 13, "totalGIRs": 7, "matchesWon": 5, "matchesTied": 0, "matchesLost": 4 }
+  ],
+  "rounds": []
+}

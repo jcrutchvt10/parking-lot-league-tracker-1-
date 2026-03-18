@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Playfair Display", serif;
+}
+
+:root {
+  --bg: #F8F9FA;
+  --ink: #1A1A1A;
+  --accent: #2D5A27; /* Golf Green */
+  --line: #E5E7EB;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+.data-row {
+  transition: background 0.2s ease;
+}
+
+.data-row:hover {
+  background: rgba(45, 90, 39, 0.05);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+

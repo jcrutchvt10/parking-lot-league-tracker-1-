@@ -1,0 +1,5 @@
+{
+  "name": "Parking Lot League Tracker",
+  "description": "A modern golf league tracking application for the Parking Lot League, featuring rolling averages, match points, and detailed statistics.",
+  "requestFramePermissions": ["camera"]
+}
