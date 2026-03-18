@@ -3,15 +3,15 @@
     {
       "uid": "joe-s",
       "username": "joe-s",
-      "password": "password123",
+      "password": "$2b$10$UuTptBwAvFswTL5p45Wh3unO4MERv2YqLK8dvdXGeg.5KhC8/G.HC",
       "displayName": "Joe$",
       "photoURL": "",
       "role": "admin",
-      "handicap": 43,
+      "handicap": 7.1,
       "points": 41.5,
       "totalRounds": 9,
       "avgScore": 43.4,
-      "totalPutts": 131,
+      "totalPutts": 148,
       "totalFairways": 13,
       "totalGIRs": 25,
       "matchesWon": 2,
@@ -21,33 +21,33 @@
     {
       "uid": "pops",
       "username": "pops",
-      "password": "password123",
+      "password": "$2b$10$adZoPWdbUI90F8JzS44YleOpfr0F7dJE1dGm5BUUAV/SjzCo9ltHi",
       "displayName": "Pops",
       "photoURL": "",
       "role": "player",
-      "handicap": 44,
+      "handicap": 7.5,
       "points": 56.5,
       "totalRounds": 9,
-      "avgScore": 43.6,
-      "totalPutts": 130,
+      "avgScore": 43.8,
+      "totalPutts": 144,
       "totalFairways": 16,
       "totalGIRs": 24,
-      "matchesWon": 4.5,
-      "matchesTied": 0,
-      "matchesLost": 4.5
+      "matchesWon": 3,
+      "matchesTied": 3,
+      "matchesLost": 3
     },
     {
       "uid": "ben",
       "username": "ben",
-      "password": "password123",
+      "password": "$2b$10$.JhDUgeC2PlnXZo7AONcVulPc.NW8mu93UCoWHyo5YA/Ke4L5ZTNu",
       "displayName": "Ben",
       "photoURL": "",
       "role": "player",
-      "handicap": 47,
+      "handicap": 10.4,
       "points": 54.5,
       "totalRounds": 9,
-      "avgScore": 46.9,
-      "totalPutts": 94,
+      "avgScore": 46.8,
+      "totalPutts": 125,
       "totalFairways": 7,
       "totalGIRs": 11,
       "matchesWon": 5,
@@ -57,128 +57,128 @@
     {
       "uid": "spike",
       "username": "spike",
-      "password": "password123",
+      "password": "$2b$10$x.VLzEL4CDWJvFi/1hE.ZOiygENGYlvh6Nzb045YQs.AllO0xYkAe",
       "displayName": "Spike",
       "photoURL": "",
       "role": "player",
-      "handicap": 43,
+      "handicap": 7.1,
       "points": 60.5,
       "totalRounds": 9,
-      "avgScore": 43.7,
-      "totalPutts": 108,
+      "avgScore": 43.4,
+      "totalPutts": 141,
       "totalFairways": 17,
       "totalGIRs": 17,
-      "matchesWon": 5.5,
-      "matchesTied": 0,
-      "matchesLost": 3.5
+      "matchesWon": 5,
+      "matchesTied": 1,
+      "matchesLost": 3
     },
     {
       "uid": "rusty",
       "username": "rusty",
-      "password": "password123",
+      "password": "$2b$10$1OFigSvARlknFefwok8HzeWaMkeecwVYihdmCxT7em0npQdYnWPXe",
       "displayName": "Rusty",
       "photoURL": "",
       "role": "player",
-      "handicap": 46,
-      "points": 46.0,
+      "handicap": 10,
+      "points": 46,
       "totalRounds": 9,
-      "avgScore": 46.6,
-      "totalPutts": 131,
+      "avgScore": 46.4,
+      "totalPutts": 152,
       "totalFairways": 23,
       "totalGIRs": 15,
-      "matchesWon": 3.5,
-      "matchesTied": 0,
-      "matchesLost": 5.5
+      "matchesWon": 3,
+      "matchesTied": 1,
+      "matchesLost": 5
     },
     {
       "uid": "colin",
       "username": "colin",
-      "password": "password123",
+      "password": "$2b$10$y3F4G8i4CaNelAiMBM0H3O4cE2kroEgBHEO49FXqDUR9Diy0QRCG.",
       "displayName": "Colin",
       "photoURL": "",
       "role": "player",
-      "handicap": 44,
-      "points": 58.0,
+      "handicap": 8,
+      "points": 58,
       "totalRounds": 9,
-      "avgScore": 44.2,
-      "totalPutts": 132,
+      "avgScore": 44.3,
+      "totalPutts": 149,
       "totalFairways": 13,
       "totalGIRs": 22,
-      "matchesWon": 5,
-      "matchesTied": 0,
-      "matchesLost": 4
+      "matchesWon": 4,
+      "matchesTied": 2,
+      "matchesLost": 3
     },
     {
       "uid": "kyle",
       "username": "kyle",
-      "password": "password123",
+      "password": "$2b$10$h5UeX7vk.yOOg0taUiFys.EwFd143C6wOXDUx4lw2Obd2SLzzqpFO",
       "displayName": "Kyle",
       "photoURL": "",
       "role": "player",
-      "handicap": 38,
+      "handicap": 1.9,
       "points": 61.5,
       "totalRounds": 9,
-      "avgScore": 38.3,
-      "totalPutts": 125,
+      "avgScore": 38,
+      "totalPutts": 140,
       "totalFairways": 18,
       "totalGIRs": 41,
-      "matchesWon": 5.5,
-      "matchesTied": 0,
-      "matchesLost": 3.5
+      "matchesWon": 5,
+      "matchesTied": 1,
+      "matchesLost": 3
     },
     {
       "uid": "joe-h",
       "username": "joe-h",
-      "password": "password123",
+      "password": "$2b$10$fWSDJawCsLg9TwV/DxjaTewRSWvP9LJkrm2VEW794ikNC.Qqd8L8C",
       "displayName": "Joe H",
       "photoURL": "",
       "role": "player",
-      "handicap": 40,
+      "handicap": 3.9,
       "points": 67.5,
       "totalRounds": 9,
-      "avgScore": 40.7,
-      "totalPutts": 120,
+      "avgScore": 40.1,
+      "totalPutts": 136,
       "totalFairways": 17,
       "totalGIRs": 28,
-      "matchesWon": 6.5,
-      "matchesTied": 0,
-      "matchesLost": 2.5
+      "matchesWon": 6,
+      "matchesTied": 1,
+      "matchesLost": 2
     },
     {
       "uid": "alex",
       "username": "alex",
-      "password": "password123",
+      "password": "$2b$10$3CwyaqNsfd8HBpNnJtgi1uWs4Wuu2sCmuBasXMJeRvWEoDj8FXGDy",
       "displayName": "Alex",
       "photoURL": "",
       "role": "player",
-      "handicap": 42,
-      "points": 49.0,
+      "handicap": 5.4,
+      "points": 49,
       "totalRounds": 9,
-      "avgScore": 41.7,
-      "totalPutts": 127,
+      "avgScore": 41.6,
+      "totalPutts": 143,
       "totalFairways": 16,
       "totalGIRs": 24,
-      "matchesWon": 2.5,
-      "matchesTied": 0,
-      "matchesLost": 6.5
+      "matchesWon": 1,
+      "matchesTied": 1,
+      "matchesLost": 7
     },
     {
       "uid": "rich",
       "username": "rich",
-      "password": "password123",
+      "password": "$2b$10$FPeAocpyppp25vQ1gJUL6.cXrYRocT0zwyT/I0XcrJSENk4n3s6pS",
       "displayName": "Rich",
       "photoURL": "",
       "role": "player",
-      "handicap": 49,
-      "points": 54.0,
+      "handicap": 12.9,
+      "points": 54,
       "totalRounds": 9,
-      "avgScore": 49.9,
-      "totalPutts": 133,
+      "avgScore": 49.4,
+      "totalPutts": 149,
       "totalFairways": 13,
       "totalGIRs": 7,
-      "matchesWon": 5,
-      "matchesTied": 0,
-      "matchesLost": 4
+      "matchesWon": 4,
+      "matchesTied": 2,
+      "matchesLost": 3
     }
   ],
   "rounds": [
@@ -189,7 +189,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 44,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -275,7 +275,10 @@
         "bogeys": 8,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-pops",
@@ -284,7 +287,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 42,
-      "points": 7.2778,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -370,7 +373,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-ben",
@@ -379,7 +385,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 48,
-      "points": 6.9444,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -465,7 +471,10 @@
         "bogeys": 6,
         "doubles": 3,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-spike",
@@ -560,7 +569,10 @@
         "bogeys": 8,
         "doubles": 1,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-rusty",
@@ -569,7 +581,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 48,
-      "points": 4.3333,
+      "points": 4.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -655,7 +667,10 @@
         "bogeys": 6,
         "doubles": 3,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-colin",
@@ -664,7 +679,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 40,
-      "points": 7.3333,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -750,7 +765,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-kyle",
@@ -759,7 +777,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 41,
-      "points": 7.6111,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -845,7 +863,10 @@
         "bogeys": 5,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-joe-h",
@@ -854,7 +875,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 45,
-      "points": 6.0556,
+      "points": 6,
       "matchResult": "loss",
       "scores": [
         {
@@ -940,7 +961,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-alex",
@@ -949,7 +973,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 42,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -1035,7 +1059,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r1-rich",
@@ -1044,7 +1071,7 @@
       "date": "2025-05-28T07:30:00.000Z",
       "roundNum": 1,
       "totalScore": 54,
-      "points": 4.8889,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -1130,7 +1157,10 @@
         "bogeys": 0,
         "doubles": 9,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-joe-s",
@@ -1139,7 +1169,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 42,
-      "points": 6.1667,
+      "points": 6,
       "matchResult": "win",
       "scores": [
         {
@@ -1225,7 +1255,10 @@
         "bogeys": 5,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-pops",
@@ -1234,7 +1267,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 50,
-      "points": 5.2778,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -1320,7 +1353,10 @@
         "bogeys": 5,
         "doubles": 4,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-ben",
@@ -1329,7 +1365,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 44,
-      "points": 6.9444,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -1415,7 +1451,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-spike",
@@ -1510,7 +1549,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-rusty",
@@ -1519,7 +1561,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 49,
-      "points": 4.3333,
+      "points": 4.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -1605,7 +1647,10 @@
         "bogeys": 6,
         "doubles": 3,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-colin",
@@ -1614,7 +1659,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 44,
-      "points": 7.3333,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -1700,7 +1745,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-kyle",
@@ -1709,7 +1757,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 41,
-      "points": 5.6111,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -1795,7 +1843,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-joe-h",
@@ -1804,7 +1855,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 39,
-      "points": 8.0556,
+      "points": 8,
       "matchResult": "win",
       "scores": [
         {
@@ -1890,7 +1941,10 @@
         "bogeys": 2,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-alex",
@@ -1899,7 +1953,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 44,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -1985,7 +2039,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r2-rich",
@@ -1994,7 +2051,7 @@
       "date": "2025-06-04T07:30:00.000Z",
       "roundNum": 2,
       "totalScore": 48,
-      "points": 6.8889,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -2080,7 +2137,10 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-joe-s",
@@ -2089,7 +2149,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 49,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -2175,7 +2235,10 @@
         "bogeys": 5,
         "doubles": 4,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-pops",
@@ -2184,7 +2247,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 40,
-      "points": 7.2778,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -2270,7 +2333,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-ben",
@@ -2279,7 +2345,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 53,
-      "points": 4.9444,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -2365,7 +2431,10 @@
         "bogeys": 1,
         "doubles": 8,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-spike",
@@ -2460,7 +2529,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-rusty",
@@ -2469,7 +2541,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 43,
-      "points": 6.3333,
+      "points": 6.5,
       "matchResult": "win",
       "scores": [
         {
@@ -2555,7 +2627,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-colin",
@@ -2564,7 +2639,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 47,
-      "points": 5.3333,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -2650,7 +2725,10 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-kyle",
@@ -2659,7 +2737,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 38,
-      "points": 5.6111,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -2745,7 +2823,10 @@
         "bogeys": 2,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-joe-h",
@@ -2754,7 +2835,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 40,
-      "points": 8.0556,
+      "points": 8,
       "matchResult": "win",
       "scores": [
         {
@@ -2840,7 +2921,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-alex",
@@ -2849,7 +2933,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 40,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -2935,7 +3019,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r3-rich",
@@ -2944,7 +3031,7 @@
       "date": "2025-06-11T07:30:00.000Z",
       "roundNum": 3,
       "totalScore": 47,
-      "points": 6.8889,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -3030,7 +3117,10 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-joe-s",
@@ -3039,7 +3129,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 43,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -3125,7 +3215,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-pops",
@@ -3134,7 +3227,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 46,
-      "points": 5.2778,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -3220,7 +3313,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-ben",
@@ -3229,7 +3325,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 50,
-      "points": 4.9444,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -3315,7 +3411,10 @@
         "bogeys": 5,
         "doubles": 4,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-spike",
@@ -3410,7 +3509,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-rusty",
@@ -3419,7 +3521,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 45,
-      "points": 4.3333,
+      "points": 4.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -3505,7 +3607,10 @@
         "bogeys": 8,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-colin",
@@ -3514,7 +3619,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 50,
-      "points": 5.3333,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -3600,7 +3705,10 @@
         "bogeys": 5,
         "doubles": 4,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-kyle",
@@ -3609,7 +3717,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 41,
-      "points": 7.6111,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -3695,7 +3803,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-joe-h",
@@ -3704,7 +3815,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 43,
-      "points": 8.0556,
+      "points": 8,
       "matchResult": "win",
       "scores": [
         {
@@ -3790,7 +3901,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-alex",
@@ -3799,7 +3913,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 43,
-      "points": 7.1111,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -3885,7 +3999,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r4-rich",
@@ -3894,7 +4011,7 @@
       "date": "2025-06-18T07:30:00.000Z",
       "roundNum": 4,
       "totalScore": 48,
-      "points": 6.8889,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -3980,7 +4097,10 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-joe-s",
@@ -3989,7 +4109,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 45,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -4075,7 +4195,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-pops",
@@ -4084,7 +4207,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 42,
-      "points": 6.2778,
+      "points": 6.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -4170,7 +4293,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-ben",
@@ -4179,7 +4305,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 43,
-      "points": 6.9444,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -4265,7 +4391,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-spike",
@@ -4360,7 +4489,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-rusty",
@@ -4369,7 +4501,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 45,
-      "points": 6.3333,
+      "points": 6.5,
       "matchResult": "win",
       "scores": [
         {
@@ -4455,7 +4587,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-colin",
@@ -4464,7 +4599,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 44,
-      "points": 6.3333,
+      "points": 6.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -4550,7 +4685,10 @@
         "bogeys": 8,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-kyle",
@@ -4559,7 +4697,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 38,
-      "points": 7.6111,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -4645,7 +4783,10 @@
         "bogeys": 2,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-joe-h",
@@ -4654,7 +4795,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 38,
-      "points": 8.0556,
+      "points": 8,
       "matchResult": "win",
       "scores": [
         {
@@ -4740,7 +4881,10 @@
         "bogeys": 2,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-alex",
@@ -4749,7 +4893,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 43,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -4835,7 +4979,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r5-rich",
@@ -4844,7 +4991,7 @@
       "date": "2025-06-25T07:30:00.000Z",
       "roundNum": 5,
       "totalScore": 52,
-      "points": 4.8889,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -4930,7 +5077,10 @@
         "bogeys": 2,
         "doubles": 7,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-joe-s",
@@ -4939,7 +5089,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 45,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -5025,7 +5175,10 @@
         "bogeys": 8,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-pops",
@@ -5034,7 +5187,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 39,
-      "points": 7.2778,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -5120,7 +5273,10 @@
         "bogeys": 2,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-ben",
@@ -5129,7 +5285,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 47,
-      "points": 4.9444,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -5215,7 +5371,10 @@
         "bogeys": 8,
         "doubles": 1,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-spike",
@@ -5310,7 +5469,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-rusty",
@@ -5319,7 +5481,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 46,
-      "points": 6.3333,
+      "points": 6.5,
       "matchResult": "win",
       "scores": [
         {
@@ -5405,7 +5567,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-colin",
@@ -5414,7 +5579,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 42,
-      "points": 7.3333,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -5500,7 +5665,10 @@
         "bogeys": 5,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-kyle",
@@ -5509,7 +5677,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 40,
-      "points": 5.6111,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -5595,7 +5763,10 @@
         "bogeys": 3,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-joe-h",
@@ -5604,7 +5775,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 43,
-      "points": 6.0556,
+      "points": 6,
       "matchResult": "loss",
       "scores": [
         {
@@ -5690,7 +5861,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-alex",
@@ -5699,7 +5873,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 42,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -5785,7 +5959,10 @@
         "bogeys": 5,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r6-rich",
@@ -5794,7 +5971,7 @@
       "date": "2025-07-02T07:30:00.000Z",
       "roundNum": 6,
       "totalScore": 49,
-      "points": 6.8889,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -5880,7 +6057,10 @@
         "bogeys": 6,
         "doubles": 3,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-joe-s",
@@ -5889,7 +6069,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 43,
-      "points": 6.1667,
+      "points": 6,
       "matchResult": "win",
       "scores": [
         {
@@ -5975,7 +6155,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-pops",
@@ -5984,7 +6167,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 43,
-      "points": 6.2778,
+      "points": 6.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -6070,7 +6253,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-ben",
@@ -6079,7 +6265,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 50,
-      "points": 4.9444,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -6165,7 +6351,10 @@
         "bogeys": 4,
         "doubles": 5,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-spike",
@@ -6260,7 +6449,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-rusty",
@@ -6269,7 +6461,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 48,
-      "points": 4.3333,
+      "points": 4.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -6355,7 +6547,10 @@
         "bogeys": 6,
         "doubles": 3,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-colin",
@@ -6364,7 +6559,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 45,
-      "points": 6.3333,
+      "points": 6.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -6450,7 +6645,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-kyle",
@@ -6459,7 +6657,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 35,
-      "points": 7.6111,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -6545,7 +6743,10 @@
         "bogeys": 0,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-joe-h",
@@ -6554,7 +6755,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 40,
-      "points": 8.0556,
+      "points": 8,
       "matchResult": "win",
       "scores": [
         {
@@ -6640,7 +6841,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-alex",
@@ -6649,7 +6853,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 42,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -6735,7 +6939,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r7-rich",
@@ -6744,7 +6951,7 @@
       "date": "2025-07-09T07:30:00.000Z",
       "roundNum": 7,
       "totalScore": 52,
-      "points": 5.8889,
+      "points": 6,
       "matchResult": "tie",
       "scores": [
         {
@@ -6830,7 +7037,10 @@
         "bogeys": 2,
         "doubles": 7,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-joe-s",
@@ -6839,7 +7049,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 40,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -6925,7 +7135,10 @@
         "bogeys": 3,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-pops",
@@ -6934,7 +7147,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 47,
-      "points": 5.2778,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -7020,7 +7233,10 @@
         "bogeys": 8,
         "doubles": 1,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-ben",
@@ -7029,7 +7245,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 45,
-      "points": 6.9444,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -7115,7 +7331,10 @@
         "bogeys": 8,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-spike",
@@ -7210,7 +7429,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-rusty",
@@ -7219,7 +7441,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 48,
-      "points": 4.3333,
+      "points": 4.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -7305,7 +7527,10 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-colin",
@@ -7314,7 +7539,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 38,
-      "points": 7.3333,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -7400,7 +7625,10 @@
         "bogeys": 1,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-kyle",
@@ -7409,7 +7637,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 38,
-      "points": 6.6111,
+      "points": 6.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -7495,7 +7723,10 @@
         "bogeys": 1,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-joe-h",
@@ -7504,7 +7735,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 40,
-      "points": 7.0556,
+      "points": 7,
       "matchResult": "tie",
       "scores": [
         {
@@ -7590,7 +7821,10 @@
         "bogeys": 3,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-alex",
@@ -7599,7 +7833,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 40,
-      "points": 5.1111,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -7685,7 +7919,10 @@
         "bogeys": 3,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r8-rich",
@@ -7694,7 +7931,7 @@
       "date": "2025-07-16T07:30:00.000Z",
       "roundNum": 8,
       "totalScore": 52,
-      "points": 4.8889,
+      "points": 5,
       "matchResult": "loss",
       "scores": [
         {
@@ -7780,7 +8017,10 @@
         "bogeys": 3,
         "doubles": 6,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-joe-s",
@@ -7789,7 +8029,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 40,
-      "points": 4.1667,
+      "points": 4,
       "matchResult": "loss",
       "scores": [
         {
@@ -7875,7 +8115,10 @@
         "bogeys": 4,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-pops",
@@ -7884,7 +8127,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 43,
-      "points": 6.2778,
+      "points": 6.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -7970,7 +8213,10 @@
         "bogeys": 7,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-ben",
@@ -7979,7 +8225,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 42,
-      "points": 6.9444,
+      "points": 7,
       "matchResult": "win",
       "scores": [
         {
@@ -8065,7 +8311,10 @@
         "bogeys": 6,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-spike",
@@ -8160,7 +8409,10 @@
         "bogeys": 9,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-rusty",
@@ -8169,7 +8421,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 47,
-      "points": 5.3333,
+      "points": 5.5,
       "matchResult": "tie",
       "scores": [
         {
@@ -8255,7 +8507,10 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-colin",
@@ -8264,7 +8519,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 44,
-      "points": 5.3333,
+      "points": 5.5,
       "matchResult": "loss",
       "scores": [
         {
@@ -8350,7 +8605,10 @@
         "bogeys": 8,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-kyle",
@@ -8359,7 +8617,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 33,
-      "points": 7.6111,
+      "points": 7.5,
       "matchResult": "win",
       "scores": [
         {
@@ -8445,7 +8703,10 @@
         "bogeys": 0,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-joe-h",
@@ -8454,7 +8715,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 38,
-      "points": 8.0556,
+      "points": 8,
       "matchResult": "win",
       "scores": [
         {
@@ -8540,7 +8801,10 @@
         "bogeys": 2,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-alex",
@@ -8549,7 +8813,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 39,
-      "points": 6.1111,
+      "points": 6,
       "matchResult": "tie",
       "scores": [
         {
@@ -8635,7 +8899,10 @@
         "bogeys": 3,
         "doubles": 0,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     },
     {
       "id": "hist-r9-rich",
@@ -8644,7 +8911,7 @@
       "date": "2025-07-23T07:30:00.000Z",
       "roundNum": 9,
       "totalScore": 47,
-      "points": 5.8889,
+      "points": 6,
       "matchResult": "tie",
       "scores": [
         {
@@ -8730,7 +8997,157 @@
         "bogeys": 7,
         "doubles": 2,
         "others": 0
-      }
+      },
+      "holePoints": 0,
+      "matchPoints": 0,
+      "avgBonusPoints": 0
     }
-  ]
+  ],
+  "season": {
+    "year": 2026,
+    "startDate": null,
+    "status": "not_started",
+    "firstRoundDate": "2026-05-20T07:30:00.000Z",
+    "firstRoundMatchups": [
+      {
+        "id": "r1-alex-spike",
+        "roundNum": 1,
+        "date": "2026-05-20T07:30:00.000Z",
+        "playerAUid": "alex",
+        "playerAName": "Alex",
+        "playerBUid": "spike",
+        "playerBName": "Spike",
+        "status": "scheduled"
+      },
+      {
+        "id": "r1-ben-rusty",
+        "roundNum": 1,
+        "date": "2026-05-20T07:30:00.000Z",
+        "playerAUid": "ben",
+        "playerAName": "Ben",
+        "playerBUid": "rusty",
+        "playerBName": "Rusty",
+        "status": "scheduled"
+      },
+      {
+        "id": "r1-colin-rich",
+        "roundNum": 1,
+        "date": "2026-05-20T07:30:00.000Z",
+        "playerAUid": "colin",
+        "playerAName": "Colin",
+        "playerBUid": "rich",
+        "playerBName": "Rich",
+        "status": "scheduled"
+      },
+      {
+        "id": "r1-joe-h-pops",
+        "roundNum": 1,
+        "date": "2026-05-20T07:30:00.000Z",
+        "playerAUid": "joe-h",
+        "playerAName": "Joe H",
+        "playerBUid": "pops",
+        "playerBName": "Pops",
+        "status": "scheduled"
+      },
+      {
+        "id": "r1-joe-s-kyle",
+        "roundNum": 1,
+        "date": "2026-05-20T07:30:00.000Z",
+        "playerAUid": "joe-s",
+        "playerAName": "Joe$",
+        "playerBUid": "kyle",
+        "playerBName": "Kyle",
+        "status": "scheduled"
+      }
+    ],
+    "weekNineDefaults": {}
+  },
+  "leagueConfig": {
+    "leagueName": "F n' G's",
+    "courseName": "Big Met Golf Course",
+    "scoring": {
+      "holeWinPoints": 1,
+      "holeTiePoints": 0.5,
+      "matchWinPoints": 2,
+      "matchTiePoints": 1,
+      "avgBonusPoints": 1,
+      "rollingAverageRounds": 8,
+      "maxOverParPerHoleRegularSeason": 3
+    },
+    "nineConfig": {
+      "front": {
+        "label": "Front 9",
+        "holeNumbers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "pars": [
+          4,
+          4,
+          4,
+          3,
+          5,
+          4,
+          5,
+          3,
+          4
+        ],
+        "handicapRanks": [
+          3,
+          6,
+          8,
+          4,
+          5,
+          9,
+          2,
+          7,
+          1
+        ]
+      },
+      "back": {
+        "label": "Back 9",
+        "holeNumbers": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "pars": [
+          3,
+          4,
+          3,
+          5,
+          4,
+          4,
+          5,
+          4,
+          4
+        ],
+        "handicapRanks": [
+          3,
+          6,
+          4,
+          8,
+          1,
+          2,
+          7,
+          9,
+          5
+        ]
+      },
+      "weeklyDefaultPattern": "alternate"
+    }
+  }
 }

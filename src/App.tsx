@@ -15,11 +15,18 @@ import {
   LogOut,
   LogIn,
   Lock,
-  User as UserIcon
+  User as UserIcon,
+  Archive,
+  TableProperties,
+  ListChecks,
+  CloudSun,
+  Wind,
+  MapPin,
+  ExternalLink
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useAuth } from './components/AuthProvider';
-import { Standing, HoleScore, Round, UserProfile } from './types';
+import { Standing, HoleScore, Round, UserProfile, SeasonInfo, LeagueConfig, HistoryData, HistoryStanding, ScheduleData, HandicapWindowRow, CourseConditionsResponse } from './types';
 import ScoreEntryModal from './components/ScoreEntryModal';
 import { 
   LineChart, 
@@ -40,17 +47,29 @@ const calculateRollingAverage = (rounds: Round[]) => {
   return last5.reduce((a, b) => a + b.totalScore, 0) / last5.length;
 };
 
+const cToF = (c: number) => ((c * 9) / 5) + 32;
+
 export default function App() {
-  const { user, profile, loading, isAdmin, login, logout, refreshProfile } = useAuth();
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'standings' | 'players' | 'rounds'>('dashboard');
+  const { user, profile, loading, login, logout, refreshProfile } = useAuth();
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'standings' | 'players' | 'rounds' | 'schedule' | 'handicap-window' | 'history'>('dashboard');
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [isScoreModalOpen, setIsScoreModalOpen] = useState(false);
   const [rounds, setRounds] = useState<Round[]>([]);
   const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
+  const [season, setSeason] = useState<SeasonInfo | null>(null);
+  const [leagueConfig, setLeagueConfig] = useState<LeagueConfig | null>(null);
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [historyYears, setHistoryYears] = useState<number[]>([]);
+  const [selectedHistoryYear, setSelectedHistoryYear] = useState<number | null>(null);
+  const [historyData, setHistoryData] = useState<HistoryData | null>(null);
+  const [historySubTab, setHistorySubTab] = useState<'standings' | 'results' | 'players'>('standings');
+  const [historySortKey, setHistorySortKey] = useState<keyof HistoryStanding>('points');
+  const [historySortDir, setHistorySortDir] = useState<'asc' | 'desc'>('desc');
+  const [scheduleData, setScheduleData] = useState<ScheduleData | null>(null);
+  const [courseConditions, setCourseConditions] = useState<CourseConditionsResponse | null>(null);
 
   const fetchData = async () => {
     if (!user) return;
@@ -61,6 +80,32 @@ export default function App() {
       ]);
       if (roundsRes.ok) setRounds(await roundsRes.json());
       if (usersRes.ok) setAllUsers(await usersRes.json());
+
+      const seasonRes = await fetch('/api/season');
+      if (seasonRes.ok) {
+        setSeason(await seasonRes.json());
+      }
+
+      const configRes = await fetch('/api/league-config');
+      if (configRes.ok) {
+        setLeagueConfig(await configRes.json());
+      }
+
+      const yearsRes = await fetch('/api/history/years');
+      if (yearsRes.ok) {
+        const years = await yearsRes.json();
+        setHistoryYears(years);
+      }
+
+      const scheduleRes = await fetch('/api/schedule');
+      if (scheduleRes.ok) {
+        setScheduleData(await scheduleRes.json());
+      }
+
+      const conditionsRes = await fetch('/api/course-conditions');
+      if (conditionsRes.ok) {
+        setCourseConditions(await conditionsRes.json());
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -69,6 +114,27 @@ export default function App() {
   useEffect(() => {
     fetchData();
   }, [user]);
+
+  useEffect(() => {
+    if (!selectedHistoryYear && historyYears.length > 0) {
+      setSelectedHistoryYear(historyYears[0]);
+    }
+  }, [historyYears, selectedHistoryYear]);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      if (!user || !selectedHistoryYear || activeTab !== 'history') return;
+      try {
+        const res = await fetch(`/api/history/${selectedHistoryYear}`);
+        if (res.ok) {
+          setHistoryData(await res.json());
+        }
+      } catch (error) {
+        console.error('Error fetching history:', error);
+      }
+    };
+    fetchHistory();
+  }, [user, selectedHistoryYear, activeTab]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,10 +165,22 @@ export default function App() {
   };
 
   const standings: Standing[] = useMemo(() => {
+    const pointsByUser = rounds.reduce((acc, r) => {
+      const current = acc[r.playerUid] || { holePoints: 0, matchPoints: 0, avgBonusPoints: 0 };
+      current.holePoints += Number(r.holePoints || 0);
+      current.matchPoints += Number(r.matchPoints || 0);
+      current.avgBonusPoints += Number(r.avgBonusPoints || 0);
+      acc[r.playerUid] = current;
+      return acc;
+    }, {} as Record<string, { holePoints: number; matchPoints: number; avgBonusPoints: number }>);
+
     return allUsers.map(u => ({
       uid: u.uid,
       displayName: u.displayName,
       points: u.points,
+      holePoints: pointsByUser[u.uid]?.holePoints || 0,
+      matchPoints: pointsByUser[u.uid]?.matchPoints || 0,
+      avgBonusPoints: pointsByUser[u.uid]?.avgBonusPoints || 0,
       matchesWon: u.matchesWon,
       handicap: u.handicap,
       avgScore: u.avgScore,
@@ -110,7 +188,7 @@ export default function App() {
       totalFairways: u.totalFairways,
       totalGIRs: u.totalGIRs
     })).sort((a, b) => b.points - a.points);
-  }, [allUsers]);
+  }, [allUsers, rounds]);
 
   const filteredUsers = useMemo(() => {
     if (!searchQuery.trim()) return allUsers;
@@ -121,6 +199,63 @@ export default function App() {
   const selectedPlayer = useMemo(() => 
     selectedPlayerId ? allUsers.find(u => u.uid === selectedPlayerId) : null
   , [selectedPlayerId, allUsers]);
+
+  const sortedHistoryStandings = useMemo(() => {
+    if (!historyData) return [];
+    const list = [...historyData.standings];
+    list.sort((a, b) => {
+      const aVal = a[historySortKey];
+      const bVal = b[historySortKey];
+      const direction = historySortDir === 'asc' ? 1 : -1;
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return (aVal - bVal) * direction;
+      }
+      return String(aVal).localeCompare(String(bVal)) * direction;
+    });
+    return list;
+  }, [historyData, historySortKey, historySortDir]);
+
+  const toggleHistorySort = (key: keyof HistoryStanding) => {
+    if (historySortKey === key) {
+      setHistorySortDir(historySortDir === 'asc' ? 'desc' : 'asc');
+    } else {
+      setHistorySortKey(key);
+      setHistorySortDir('desc');
+    }
+  };
+
+  const setWeekDefault = async (week: number, ninePlayed: 'front' | 'back' | 'unset') => {
+    try {
+      const response = await fetch('/api/schedule/week-default', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ week, ninePlayed })
+      });
+      if (response.ok) {
+        setScheduleData(await response.json());
+      }
+    } catch (error) {
+      console.error('Error updating week default:', error);
+    }
+  };
+
+  const handicapWindowRows: HandicapWindowRow[] = useMemo(() => {
+    const rolling = Number(leagueConfig?.scoring?.rollingAverageRounds || 8);
+    return allUsers.map((u) => {
+      const used = rounds
+        .filter((r) => r.playerUid === u.uid)
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, rolling)
+        .map((r) => r.totalScore);
+      const avg = used.length ? Number((used.reduce((a, b) => a + b, 0) / used.length).toFixed(1)) : 0;
+      return {
+        uid: u.uid,
+        displayName: u.displayName,
+        roundsUsed: used,
+        average: avg
+      };
+    }).sort((a, b) => a.displayName.localeCompare(b.displayName));
+  }, [allUsers, rounds, leagueConfig]);
 
   if (loading) {
     return (
@@ -191,7 +326,7 @@ export default function App() {
           </form>
           
           <div className="mt-10 pt-10 border-t border-gray-50">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">2026 Season • Official Tracker</p>
+            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Official League Tracker</p>
           </div>
         </motion.div>
       </div>
@@ -212,7 +347,7 @@ export default function App() {
           </div>
           <div>
             <h1 className="font-display font-bold text-xl leading-none">Parking Lot</h1>
-            <p className="text-[10px] uppercase tracking-widest text-emerald-700 font-bold">League Tracker</p>
+            <p className="text-[10px] uppercase tracking-widest text-emerald-700 font-bold">{leagueConfig?.leagueName || 'League Tracker'}</p>
           </div>
         </div>
 
@@ -240,6 +375,24 @@ export default function App() {
             onClick={() => { setActiveTab('rounds'); setSelectedPlayerId(null); }}
             icon={<Calendar size={20} />}
             label="Rounds"
+          />
+          <NavItem 
+            active={activeTab === 'schedule'} 
+            onClick={() => { setActiveTab('schedule'); setSelectedPlayerId(null); }}
+            icon={<TableProperties size={20} />}
+            label="Schedule"
+          />
+          <NavItem 
+            active={activeTab === 'handicap-window'} 
+            onClick={() => { setActiveTab('handicap-window'); setSelectedPlayerId(null); }}
+            icon={<ListChecks size={20} />}
+            label="Handicap Window"
+          />
+          <NavItem 
+            active={activeTab === 'history'} 
+            onClick={() => { setActiveTab('history'); setSelectedPlayerId(null); }}
+            icon={<Archive size={20} />}
+            label="History"
           />
         </div>
 
@@ -272,6 +425,9 @@ export default function App() {
                   {activeTab === 'standings' && "League Standings"}
                   {activeTab === 'players' && "Player Directory"}
                   {activeTab === 'rounds' && "Tournament Rounds"}
+                  {activeTab === 'schedule' && "Season Schedule"}
+                  {activeTab === 'handicap-window' && "Rolling Handicap Window"}
+                  {activeTab === 'history' && "Season History"}
                 </>
               )}
             </h2>
@@ -404,6 +560,105 @@ export default function App() {
                   exit={{ opacity: 0, y: -10 }}
                   className="space-y-12"
                 >
+                  <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                      <div>
+                        <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest">Season Status</p>
+                        <h3 className="text-xl font-display font-bold text-gray-900">
+                          {season?.year ? `Season ${season.year}` : 'Season Not Started'}
+                        </h3>
+                        <p className="text-sm text-gray-500">
+                          Round 1 start: {season?.firstRoundDate ? new Date(season.firstRoundDate).toLocaleDateString() : 'Not scheduled'}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">Course: {leagueConfig?.courseName || 'Big Met Golf Course'}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Season Status</p>
+                        <p className="text-sm font-bold text-emerald-700">
+                          {season?.status === 'active' ? 'Active (automatic)' : 'Waiting for kickoff date'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-500">
+                      Season activation now happens automatically on {season?.firstRoundDate ? new Date(season.firstRoundDate).toLocaleDateString() : 'the first-round date'}. Dynamic rules still apply: hole points + match points + avg bonus, rolling {leagueConfig?.scoring.rollingAverageRounds || 8}-round average, and front/back nine profiles.
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-emerald-700 via-emerald-800 to-slate-900 rounded-3xl p-6 text-white shadow-xl">
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                      <div className="space-y-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-[10px] font-bold uppercase tracking-widest">
+                          <Flag size={12} />
+                          Centennial Spotlight
+                        </div>
+                        <h3 className="text-2xl font-display font-bold leading-tight">
+                          {courseConditions?.course?.name || 'Big Met Golf Course'}
+                        </h3>
+                        <p className="text-emerald-100 text-sm max-w-2xl">
+                          Opened in {courseConditions?.course?.openedYear || 1926}, Big Met has hosted {courseConditions?.course?.roundsSinceOpen || 'millions'} rounds and remains one of Ohio's most-played public courses.
+                        </p>
+                        <div className="flex items-start gap-2 text-sm text-emerald-100">
+                          <MapPin size={16} className="mt-0.5" />
+                          <span>{courseConditions?.course?.location || '4811 Valley Parkway, Fairview Park, OH 44126'}</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <a
+                            href={courseConditions?.course?.links?.teeTimes || '#'}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-emerald-800 text-xs font-bold hover:bg-emerald-50"
+                          >
+                            Book Tee Time <ExternalLink size={14} />
+                          </a>
+                          <a
+                            href={courseConditions?.course?.links?.scorecard || '#'}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 text-white text-xs font-bold hover:bg-white/25"
+                          >
+                            View Scorecard <ExternalLink size={14} />
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="min-w-[280px] bg-white/10 rounded-2xl p-4 backdrop-blur-sm border border-white/15">
+                        <div className="flex items-center justify-between mb-3">
+                          <p className="text-xs uppercase tracking-widest font-bold text-emerald-100">Current Forecast</p>
+                          <CloudSun size={18} className="text-amber-200" />
+                        </div>
+
+                        {courseConditions?.forecast ? (
+                          <>
+                            <p className="text-3xl font-bold leading-none">{Math.round(cToF(courseConditions.forecast.temperatureC))}F</p>
+                            <p className="text-xs text-emerald-100 mt-1">{courseConditions.forecast.condition} • Feels like {Math.round(cToF(courseConditions.forecast.feelsLikeC))}F</p>
+                            <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
+                              <div className="bg-black/15 rounded-xl px-3 py-2">
+                                <p className="text-emerald-200 uppercase tracking-wider">High / Low</p>
+                                <p className="font-bold">{Math.round(cToF(courseConditions.forecast.todayHighC))}F / {Math.round(cToF(courseConditions.forecast.todayLowC))}F</p>
+                              </div>
+                              <div className="bg-black/15 rounded-xl px-3 py-2">
+                                <p className="text-emerald-200 uppercase tracking-wider">Precip</p>
+                                <p className="font-bold">{Math.round(courseConditions.forecast.precipChancePct)}%</p>
+                              </div>
+                            </div>
+                            <div className="mt-3 flex items-center gap-2 text-xs text-emerald-100">
+                              <Wind size={14} />
+                              <span>{Math.round(courseConditions.forecast.windKph)} kph wind, gusts {Math.round(courseConditions.forecast.gustKph)} kph</span>
+                            </div>
+                          </>
+                        ) : (
+                          <p className="text-sm text-emerald-100">Forecast unavailable right now. {courseConditions?.forecastError || ''}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-5 pt-4 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                      {(courseConditions?.course?.highlights || []).slice(0, 3).map((item, idx) => (
+                        <div key={idx} className="bg-black/15 rounded-xl px-3 py-2 text-emerald-50">{item}</div>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Personal Performance */}
                   <div className="bg-white rounded-3xl border border-gray-200 p-8 shadow-sm">
                     <div className="flex items-center justify-between mb-8">
@@ -528,21 +783,27 @@ export default function App() {
                   <div className="flex flex-col gap-8">
                     <div className="bg-emerald-900 text-white rounded-3xl p-8 relative overflow-hidden shadow-2xl shadow-emerald-900/20">
                       <div className="relative z-10">
-                        <h3 className="text-emerald-200 text-xs font-bold uppercase tracking-widest mb-2">Next Match</h3>
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="text-center">
-                            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-2 font-bold">KY</div>
-                            <p className="text-sm font-bold">Kyle</p>
+                        <h3 className="text-emerald-200 text-xs font-bold uppercase tracking-widest mb-2">Round 1 Matchups</h3>
+                        {season?.firstRoundMatchups?.length ? (
+                          <div className="space-y-3 mb-6">
+                            {season.firstRoundMatchups.slice(0, 3).map((m) => (
+                              <div key={m.id} className="text-sm font-bold flex items-center justify-between bg-white/10 rounded-xl px-3 py-2">
+                                <span>{m.playerAName}</span>
+                                <span className="text-emerald-300 text-xs uppercase">vs</span>
+                                <span>{m.playerBName}</span>
+                              </div>
+                            ))}
                           </div>
-                          <div className="text-emerald-400 font-display italic text-2xl">vs</div>
-                          <div className="text-center">
-                            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-2 font-bold">JH</div>
-                            <p className="text-sm font-bold">Joe H</p>
-                          </div>
-                        </div>
+                        ) : (
+                          <p className="text-sm text-emerald-200 mb-6">No matchups generated yet.</p>
+                        )}
                         <div className="flex items-center gap-2 text-xs text-emerald-200">
                           <Calendar size={14} />
-                          <span>Saturday, March 21 • 7:30 AM</span>
+                          <span>
+                            {season?.firstRoundDate
+                              ? `${new Date(season.firstRoundDate).toLocaleDateString()} • 7:30 AM`
+                              : 'Round 1 date not set'}
+                          </span>
                         </div>
                       </div>
                       {/* Decorative Circle */}
@@ -597,6 +858,9 @@ export default function App() {
                           <th className="px-6 py-6">Rank</th>
                           <th className="px-6 py-6">Player</th>
                           <th className="px-6 py-6 text-center">Points</th>
+                          <th className="px-6 py-6 text-center">Hole Pts</th>
+                          <th className="px-6 py-6 text-center">Match Pts</th>
+                          <th className="px-6 py-6 text-center">Avg Pts</th>
                           <th className="px-6 py-6 text-center">Avg Score</th>
                           <th className="px-6 py-6 text-center">Putts</th>
                           <th className="px-6 py-6 text-center">Fairways</th>
@@ -607,33 +871,45 @@ export default function App() {
                       </thead>
                       <tbody className="divide-y divide-gray-50">
                         {standings.map((player, idx) => (
-                          <tr key={player.uid} className="data-row cursor-pointer" onClick={() => setSelectedPlayerId(player.uid)}>
-                            <td className="px-6 py-5 font-mono text-sm">
-                              <span className={idx < 8 ? "text-emerald-600 font-bold" : "text-gray-400"}>
-                                {idx + 1}
-                              </span>
-                            </td>
-                            <td className="px-6 py-5">
-                              <div className="flex items-center gap-3">
-                                <img 
-                                  src={`https://ui-avatars.com/api/?name=${player.displayName}&background=random`} 
-                                  alt={player.displayName} 
-                                  className="w-10 h-10 rounded-xl border border-gray-100"
-                                />
-                                <div>
-                                  <p className="font-bold text-sm">{player.displayName}</p>
-                                  <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Season 2025</p>
+                          <React.Fragment key={player.uid}>
+                            {idx === 8 && (
+                              <tr>
+                                <td colSpan={12} className="px-6 py-2 bg-red-50 text-red-700 text-[10px] font-bold uppercase tracking-widest text-center">
+                                  Playoff Cutoff - Top 8 Advance
+                                </td>
+                              </tr>
+                            )}
+                            <tr className="data-row cursor-pointer" onClick={() => setSelectedPlayerId(player.uid)}>
+                              <td className="px-6 py-5 font-mono text-sm">
+                                <span className={idx < 8 ? "text-emerald-600 font-bold" : "text-gray-400"}>
+                                  {idx + 1}
+                                </span>
+                              </td>
+                              <td className="px-6 py-5">
+                                <div className="flex items-center gap-3">
+                                  <img 
+                                    src={`https://ui-avatars.com/api/?name=${player.displayName}&background=random`} 
+                                    alt={player.displayName} 
+                                    className="w-10 h-10 rounded-xl border border-gray-100"
+                                  />
+                                  <div>
+                                    <p className="font-bold text-sm">{player.displayName}</p>
+                                    <p className="text-[10px] text-gray-400 uppercase tracking-tighter">Season {season?.year || 2026}</p>
+                                  </div>
                                 </div>
-                              </div>
-                            </td>
-                            <td className="px-6 py-5 text-center font-bold text-emerald-700">{player.points}</td>
-                            <td className="px-6 py-5 text-center font-mono text-sm">{player.avgScore}</td>
-                            <td className="px-6 py-5 text-center text-sm text-gray-600">{player.totalPutts}</td>
-                            <td className="px-6 py-5 text-center text-sm text-gray-600">{player.totalFairways}</td>
-                            <td className="px-6 py-5 text-center text-sm text-gray-600">{player.totalGIRs}</td>
-                            <td className="px-6 py-5 text-center text-sm text-gray-600">{player.matchesWon}</td>
-                            <td className="px-6 py-5 text-center text-sm text-gray-600">{player.handicap}</td>
-                          </tr>
+                              </td>
+                              <td className="px-6 py-5 text-center font-bold text-emerald-700">{player.points}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.holePoints}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.matchPoints}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.avgBonusPoints}</td>
+                              <td className="px-6 py-5 text-center font-mono text-sm">{player.avgScore}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.totalPutts}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.totalFairways}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.totalGIRs}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.matchesWon}</td>
+                              <td className="px-6 py-5 text-center text-sm text-gray-600">{player.handicap}</td>
+                            </tr>
+                          </React.Fragment>
                         ))}
                       </tbody>
                     </table>
@@ -709,7 +985,8 @@ export default function App() {
                           </div>
                           <div>
                             <h4 className="font-bold">{round.playerName} - Round {round.roundNum}</h4>
-                            <p className="text-xs text-gray-500">{new Date(round.date).toLocaleDateString()} • {round.matchResult.toUpperCase()}</p>
+                            <p className="text-xs text-gray-500">{new Date(round.date).toLocaleDateString()} • {(round.ninePlayed || 'front').toUpperCase()} 9 • {round.matchResult.toUpperCase()}</p>
+                            <p className="text-[10px] text-gray-400">Hole {round.holePoints || 0} + Match {round.matchPoints || 0} + Avg {round.avgBonusPoints || 0} = {round.points}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-8">
@@ -730,6 +1007,232 @@ export default function App() {
                   )}
                 </motion.div>
               )}
+
+              {activeTab === 'history' && (
+                <motion.div
+                  key="history"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-6"
+                >
+                  <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">History Seasons</p>
+                      <p className="text-sm text-gray-600">Pick a completed year to view historical standings and results.</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {historyYears.length === 0 && (
+                        <span className="text-xs text-gray-500">No historical rounds found.</span>
+                      )}
+                      {historyYears.map((y) => (
+                        <button
+                          key={y}
+                          onClick={() => setSelectedHistoryYear(y)}
+                          className={`px-4 py-2 rounded-full text-xs font-bold transition-colors ${selectedHistoryYear === y ? 'bg-emerald-700 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                        >
+                          {y}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    {(['standings', 'results', 'players'] as const).map((tab) => (
+                      <button
+                        key={tab}
+                        onClick={() => setHistorySubTab(tab)}
+                        className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-colors ${historySubTab === tab ? 'bg-emerald-700 text-white' : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'}`}
+                      >
+                        {tab}
+                      </button>
+                    ))}
+                  </div>
+
+                  {!historyData ? (
+                    <div className="bg-white rounded-3xl border border-gray-200 p-12 text-center text-gray-500 font-bold">Select a history season to load data.</div>
+                  ) : (
+                    <>
+                      {historySubTab === 'standings' && (
+                        <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm">
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                              <thead>
+                                <tr className="bg-gray-50/50 text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+                                  <th className="px-6 py-4">Rank</th>
+                                  <th className="px-6 py-4 cursor-pointer" onClick={() => toggleHistorySort('displayName')}>Player</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('points')}>Points</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('holePoints')}>Hole</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('matchPoints')}>Match</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('avgBonusPoints')}>Avg</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('birdies')}>Birdies</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('pars')}>Pars</th>
+                                  <th className="px-6 py-4 text-center cursor-pointer" onClick={() => toggleHistorySort('bogeys')}>Bogeys</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-50">
+                                {sortedHistoryStandings.map((player, idx) => (
+                                  <React.Fragment key={player.uid}>
+                                    {idx === 8 && (
+                                      <tr>
+                                        <td colSpan={9} className="px-6 py-2 bg-red-50 text-red-700 text-[10px] font-bold uppercase tracking-widest text-center">
+                                          Playoff Cutoff - Top 8 Advance
+                                        </td>
+                                      </tr>
+                                    )}
+                                    <tr className="data-row">
+                                      <td className="px-6 py-4 font-mono text-sm">{idx + 1}</td>
+                                      <td className="px-6 py-4 font-bold text-sm">{player.displayName}</td>
+                                      <td className="px-6 py-4 text-center font-bold text-emerald-700">{player.points}</td>
+                                      <td className="px-6 py-4 text-center text-sm">{player.holePoints}</td>
+                                      <td className="px-6 py-4 text-center text-sm">{player.matchPoints}</td>
+                                      <td className="px-6 py-4 text-center text-sm">{player.avgBonusPoints}</td>
+                                      <td className="px-6 py-4 text-center text-sm">{player.birdies}</td>
+                                      <td className="px-6 py-4 text-center text-sm">{player.pars}</td>
+                                      <td className="px-6 py-4 text-center text-sm">{player.bogeys}</td>
+                                    </tr>
+                                  </React.Fragment>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      )}
+
+                      {historySubTab === 'results' && (
+                        <div className="space-y-4">
+                          {historyData.results.length === 0 ? (
+                            <div className="bg-white rounded-3xl border border-gray-200 p-10 text-center text-gray-500 font-bold">No results found for {historyData.year}.</div>
+                          ) : historyData.results.map((round) => (
+                            <div key={round.id} className="bg-white rounded-3xl border border-gray-200 p-6 flex items-center justify-between gap-4">
+                              <div>
+                                <p className="font-bold">{round.playerName} • Round {round.roundNum}</p>
+                                <p className="text-xs text-gray-500">{new Date(round.date).toLocaleDateString()} • {(round.ninePlayed || 'front').toUpperCase()} 9 • {round.matchResult.toUpperCase()}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-sm font-bold text-emerald-700">{round.points} pts</p>
+                                <p className="text-xs text-gray-500">Score {round.totalScore}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {historySubTab === 'players' && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {historyData.players.map((player) => (
+                            <div key={player.uid} className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm">
+                              <p className="font-bold text-lg mb-2">{player.displayName}</p>
+                              <div className="grid grid-cols-2 gap-3 text-sm">
+                                <span className="text-gray-500">Rounds</span><span className="font-bold text-right">{player.totalRounds}</span>
+                                <span className="text-gray-500">Avg Score</span><span className="font-bold text-right">{player.avgScore}</span>
+                                <span className="text-gray-500">Putts</span><span className="font-bold text-right">{player.totalPutts}</span>
+                                <span className="text-gray-500">Fairways</span><span className="font-bold text-right">{player.totalFairways}</span>
+                                <span className="text-gray-500">GIRs</span><span className="font-bold text-right">{player.totalGIRs}</span>
+                                <span className="text-gray-500">Eagles/Birdies</span><span className="font-bold text-right">{player.eagles}/{player.birdies}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </motion.div>
+              )}
+
+              {activeTab === 'schedule' && (
+                <motion.div
+                  key="schedule"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="space-y-4"
+                >
+                  <div className="bg-white rounded-3xl border border-gray-200 p-6 text-sm text-gray-600">
+                    {scheduleData?.note || 'Round 1 starts on the front 9 and rotates every week. Matchups are pre-generated with comments.'}
+                  </div>
+
+                  {scheduleData && (
+                    <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                        <h3 className="font-bold text-lg">Upcoming Round Matchups (Week {scheduleData.upcomingWeek})</h3>
+                        <span className="text-xs text-gray-500">Scheduled: {new Date(scheduleData.upcomingRoundDate).toLocaleDateString()}</span>
+                      </div>
+                      <div className="space-y-3">
+                        {(scheduleData.upcomingMatchups || []).map((m) => (
+                          <div key={m.id} className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4">
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="font-bold text-emerald-900">{m.playerAName} vs {m.playerBName}</p>
+                              <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 uppercase font-bold">{m.status}</span>
+                            </div>
+                            <p className="text-sm text-gray-600 mt-1">{m.comment}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {(scheduleData?.weeks || []).map((w) => (
+                      <div key={w.week} className="bg-white rounded-3xl border border-gray-200 p-5">
+                        <div className="flex items-center justify-between mb-3">
+                          <p className="font-bold">Week {w.week}</p>
+                          <span className="text-xs px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold uppercase">Default {w.resolvedDefault}</span>
+                        </div>
+                        <p className="text-xs text-gray-500 mb-3">Rotating format is locked: front/back alternates weekly from Week 1.</p>
+                        <div className="space-y-2">
+                          {(w.matchups || []).map((m) => (
+                            <div key={m.id} className="rounded-2xl border border-gray-100 bg-gray-50 p-3">
+                              <div className="flex items-center justify-between gap-2">
+                                <p className="text-sm font-bold text-gray-800">{m.playerAName} vs {m.playerBName}</p>
+                                <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 uppercase font-bold">{m.status}</span>
+                              </div>
+                              <p className="text-xs text-gray-500 mt-1">{m.comment}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === 'handicap-window' && (
+                <motion.div
+                  key="handicap-window"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm"
+                >
+                  <div className="p-6 border-b border-gray-100">
+                    <p className="font-bold">Rolling {leagueConfig?.scoring?.rollingAverageRounds || 8} Rounds Used for Handicap</p>
+                    <p className="text-xs text-gray-500 mt-1">Shows the exact gross scores currently used in each player’s handicap window.</p>
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                      <thead>
+                        <tr className="bg-gray-50/50 text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+                          <th className="px-6 py-4">Player</th>
+                          <th className="px-6 py-4">Rounds Used</th>
+                          <th className="px-6 py-4 text-center">Average</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50">
+                        {handicapWindowRows.map((row) => (
+                          <tr key={row.uid}>
+                            <td className="px-6 py-4 font-bold text-sm">{row.displayName}</td>
+                            <td className="px-6 py-4 text-sm text-gray-600">
+                              {row.roundsUsed.length ? row.roundsUsed.join(', ') : 'No rounds yet'}
+                            </td>
+                            <td className="px-6 py-4 text-center font-mono text-sm">{row.average}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </motion.div>
+              )}
             </>
           )}
         </AnimatePresence>
@@ -738,6 +1241,8 @@ export default function App() {
           onClose={() => setIsScoreModalOpen(false)}
           players={allUsers}
           currentUser={profile}
+          leagueConfig={leagueConfig}
+          weeklyDefaults={Object.fromEntries((scheduleData?.weeks || []).map((w) => [w.week, w.resolvedDefault])) as Record<number, 'front' | 'back'>}
           onSave={handleSaveRound}
         />
       </main>

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, ChangeEvent, FormEvent } from 'react';
 import { X, Camera, Loader2, Check, AlertCircle, Target } from 'lucide-react';
 import { motion } from 'motion/react';
-import { UserProfile, HoleScore, Round } from '../types';
+import { UserProfile, HoleScore, Round, LeagueConfig } from '../types';
 import { analyzeScorecard } from '../services/geminiService';
 
 interface ScoreEntryModalProps {
@@ -9,23 +9,46 @@ interface ScoreEntryModalProps {
   onClose: () => void;
   players: UserProfile[];
   currentUser: UserProfile | null;
+  leagueConfig: LeagueConfig | null;
+  weeklyDefaults: Record<number, 'front' | 'back'>;
   onSave: (round: Omit<Round, 'id'>) => Promise<void>;
 }
 
-const DEFAULT_HOLES: HoleScore[] = Array.from({ length: 9 }, (_, i) => ({
+const FALLBACK_HOLES: HoleScore[] = Array.from({ length: 9 }, (_, i) => ({
   holeNumber: i + 1,
-  par: 4,
+  par: [4, 4, 4, 3, 5, 4, 5, 3, 4][i],
   score: 4,
   putts: 2,
   fairwayHit: false,
   gir: false,
 }));
 
-export default function ScoreEntryModal({ isOpen, onClose, players, currentUser, onSave }: ScoreEntryModalProps) {
+function holesForNine(leagueConfig: LeagueConfig | null, ninePlayed: 'front' | 'back'): HoleScore[] {
+  const nine = leagueConfig?.nineConfig?.[ninePlayed];
+  if (!nine) {
+    return FALLBACK_HOLES.map(h => ({ ...h }));
+  }
+  return nine.holeNumbers.map((holeNumber, idx) => ({
+    holeNumber,
+    par: nine.pars[idx],
+    score: nine.pars[idx],
+    putts: 2,
+    fairwayHit: false,
+    gir: false
+  }));
+}
+
+function getDefaultNine(week: number, weeklyDefaults: Record<number, 'front' | 'back'>) {
+  return weeklyDefaults[week] || (week % 2 === 1 ? 'front' : 'back');
+}
+
+export default function ScoreEntryModal({ isOpen, onClose, players, currentUser, leagueConfig, weeklyDefaults, onSave }: ScoreEntryModalProps) {
   const [selectedPlayerUid, setSelectedPlayerUid] = useState(currentUser?.uid || '');
   const [roundNum, setRoundNum] = useState(1);
+  const [ninePlayed, setNinePlayed] = useState<'front' | 'back'>('front');
+  const [holePoints, setHolePoints] = useState(0);
   const [matchResult, setMatchResult] = useState<'win' | 'tie' | 'loss'>('win');
-  const [scores, setScores] = useState<HoleScore[]>(DEFAULT_HOLES);
+  const [scores, setScores] = useState<HoleScore[]>(FALLBACK_HOLES);
   const [pendingImage, setPendingImage] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -38,19 +61,39 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
       const uid = currentUser?.uid || '';
       setSelectedPlayerUid(uid);
       const player = players.find(p => p.uid === uid);
-      setRoundNum((player?.totalRounds ?? 0) + 1);
+      const nextRoundNum = (player?.totalRounds ?? 0) + 1;
+      setRoundNum(nextRoundNum);
+      const defaultNine = getDefaultNine(nextRoundNum, weeklyDefaults);
+      setNinePlayed(defaultNine);
       setMatchResult('win');
-      setScores(DEFAULT_HOLES.map(h => ({ ...h })));
+      setHolePoints(0);
+      setScores(holesForNine(leagueConfig, defaultNine));
       setPendingImage(null);
       setError(null);
     }
-  }, [isOpen]);
+  }, [isOpen, currentUser, players, leagueConfig, weeklyDefaults]);
 
   // Update roundNum when player selection changes
   const handlePlayerChange = (uid: string) => {
     setSelectedPlayerUid(uid);
     const player = players.find(p => p.uid === uid);
-    setRoundNum((player?.totalRounds ?? 0) + 1);
+    const nextRoundNum = (player?.totalRounds ?? 0) + 1;
+    setRoundNum(nextRoundNum);
+    const defaultNine = getDefaultNine(nextRoundNum, weeklyDefaults);
+    setNinePlayed(defaultNine);
+    setScores(holesForNine(leagueConfig, defaultNine));
+  };
+
+  const handleWeekChange = (nextWeek: number) => {
+    setRoundNum(nextWeek);
+    const defaultNine = getDefaultNine(nextWeek, weeklyDefaults);
+    setNinePlayed(defaultNine);
+    setScores(holesForNine(leagueConfig, defaultNine));
+  };
+
+  const handleNineChange = (nine: 'front' | 'back') => {
+    setNinePlayed(nine);
+    setScores(holesForNine(leagueConfig, nine));
   };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +131,13 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
 
   const handleScoreChange = (index: number, field: keyof HoleScore, value: any) => {
     const newScores = [...scores];
-    newScores[index] = { ...newScores[index], [field]: value };
+    if (field === 'score') {
+      const par = newScores[index].par;
+      const cap = par + Number(leagueConfig?.scoring?.maxOverParPerHoleRegularSeason ?? 3);
+      newScores[index] = { ...newScores[index], score: Math.min(Number(value), cap) };
+    } else {
+      newScores[index] = { ...newScores[index], [field]: value };
+    }
     setScores(newScores);
   };
 
@@ -107,7 +156,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
 
     const totalScore = scores.reduce((sum, h) => sum + h.score, 0);
     const putts = scores.reduce((sum, h) => sum + h.putts, 0);
-    const fairways = scores.filter(h => h.fairwayHit).length;
+    const fairways = scores.filter(h => h.par > 3 && h.fairwayHit).length;
     const girs = scores.filter(h => h.gir).length;
     const eagles = scores.filter(h => h.score <= h.par - 2).length;
     const birdies = scores.filter(h => h.score === h.par - 1).length;
@@ -116,20 +165,30 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
     const doubles = scores.filter(h => h.score === h.par + 2).length;
     const others = scores.filter(h => h.score > h.par + 2).length;
 
-    // Points: 2 win / 1 tie / 0 loss + 0.25/birdie + 1/eagle + 1 if at/below rolling avg
-    let points = matchResult === 'win' ? 2 : matchResult === 'tie' ? 1 : 0;
-    points += birdies * 0.25;
-    points += eagles * 1;
+    const matchPoints = matchResult === 'win'
+      ? (leagueConfig?.scoring?.matchWinPoints ?? 2)
+      : matchResult === 'tie'
+        ? (leagueConfig?.scoring?.matchTiePoints ?? 1)
+        : 0;
+    let avgBonusPoints = 0;
     const rollingAvg = player.avgScore;
-    if (rollingAvg > 0 && totalScore <= rollingAvg) points += 1;
+    if (rollingAvg > 0 && totalScore <= rollingAvg) {
+      avgBonusPoints = leagueConfig?.scoring?.avgBonusPoints ?? 1;
+    }
+
+    const totalPoints = holePoints + matchPoints + avgBonusPoints;
 
     const roundData: Omit<Round, 'id'> = {
       playerUid: selectedPlayerUid,
       playerName: player.displayName,
       date: new Date().toISOString(),
       roundNum,
+      ninePlayed,
       totalScore,
-      points,
+      points: totalPoints,
+      holePoints,
+      matchPoints,
+      avgBonusPoints,
       matchResult,
       scores,
       stats: {
@@ -199,6 +258,37 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
               </select>
             </div>
             <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-gray-400">Week</label>
+              <input
+                type="number"
+                min="1"
+                max="30"
+                value={roundNum}
+                onChange={(e) => handleWeekChange(Number(e.target.value) || 1)}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+              />
+              <p className="text-[10px] text-gray-400">Default nine auto-fills from schedule; you can override for make-up rounds.</p>
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-gray-400">Nine Played</label>
+              <div className="flex gap-2">
+                {(['front', 'back'] as const).map((nine) => (
+                  <button
+                    key={nine}
+                    type="button"
+                    onClick={() => handleNineChange(nine)}
+                    className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
+                      ninePlayed === nine
+                        ? 'bg-emerald-700 text-white border-emerald-700'
+                        : 'bg-gray-50 text-gray-400 border-gray-200 hover:border-emerald-500'
+                    }`}
+                  >
+                    {nine === 'front' ? (leagueConfig?.nineConfig.front.label || 'Front 9') : (leagueConfig?.nineConfig.back.label || 'Back 9')}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-2">
               <label className="text-xs font-bold uppercase tracking-wider text-gray-400">Match Result</label>
               <div className="flex gap-2">
                 {(['win', 'tie', 'loss'] as const).map((res) => (
@@ -216,6 +306,18 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
                   </button>
                 ))}
               </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-gray-400">Hole Points</label>
+              <input
+                type="number"
+                step="0.5"
+                min="0"
+                max="9"
+                value={holePoints}
+                onChange={(e) => setHolePoints(Number(e.target.value))}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+              />
             </div>
           </div>
 
