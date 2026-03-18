@@ -3,6 +3,7 @@ import { UserProfile } from '../types';
 
 interface AuthContextType {
   user: UserProfile | null;
+  profile: UserProfile | null;
   loading: boolean;
   isAdmin: boolean;
   login: (username: string, password: string) => Promise<void>;
@@ -61,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const isAdmin = user?.role === 'admin';
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAdmin, login, logout, refreshProfile }}>
+    <AuthContext.Provider value={{ user, profile: user, loading, isAdmin, login, logout, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

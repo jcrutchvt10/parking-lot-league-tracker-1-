@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEvent, FormEvent } from 'react';
+import { useState, useRef, useEffect, ChangeEvent, FormEvent } from 'react';
 import { X, Camera, Loader2, Check, AlertCircle, Target } from 'lucide-react';
 import { motion } from 'motion/react';
 import { UserProfile, HoleScore, Round } from '../types';
@@ -31,6 +31,27 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Reset form state whenever the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const uid = currentUser?.uid || '';
+      setSelectedPlayerUid(uid);
+      const player = players.find(p => p.uid === uid);
+      setRoundNum((player?.totalRounds ?? 0) + 1);
+      setMatchResult('win');
+      setScores(DEFAULT_HOLES.map(h => ({ ...h })));
+      setPendingImage(null);
+      setError(null);
+    }
+  }, [isOpen]);
+
+  // Update roundNum when player selection changes
+  const handlePlayerChange = (uid: string) => {
+    setSelectedPlayerUid(uid);
+    const player = players.find(p => p.uid === uid);
+    setRoundNum((player?.totalRounds ?? 0) + 1);
+  };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -95,13 +116,20 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
     const doubles = scores.filter(h => h.score === h.par + 2).length;
     const others = scores.filter(h => h.score > h.par + 2).length;
 
+    // Points: 2 win / 1 tie / 0 loss + 0.25/birdie + 1/eagle + 1 if at/below rolling avg
+    let points = matchResult === 'win' ? 2 : matchResult === 'tie' ? 1 : 0;
+    points += birdies * 0.25;
+    points += eagles * 1;
+    const rollingAvg = player.avgScore;
+    if (rollingAvg > 0 && totalScore <= rollingAvg) points += 1;
+
     const roundData: Omit<Round, 'id'> = {
       playerUid: selectedPlayerUid,
       playerName: player.displayName,
       date: new Date().toISOString(),
       roundNum,
       totalScore,
-      points: 0, // Will be calculated in handleSaveRound
+      points,
       matchResult,
       scores,
       stats: {
@@ -154,7 +182,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
               <label className="text-xs font-bold uppercase tracking-wider text-gray-400">Player</label>
               <select 
                 value={selectedPlayerUid}
-                onChange={(e) => setSelectedPlayerUid(e.target.value)}
+                onChange={(e) => handlePlayerChange(e.target.value)}
                 disabled={!isAdmin}
                 className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all disabled:opacity-50"
                 required

@@ -2,14 +2,14 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { HoleScore } from "../types";
 
 export async function analyzeScorecard(base64Image: string): Promise<HoleScore[]> {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : undefined);
   if (!apiKey) {
     console.error("GEMINI_API_KEY is not set. AI analysis will not work.");
     return [];
   }
 
   const ai = new GoogleGenAI({ apiKey });
-  const model = "gemini-3-flash-preview";
+  const model = "gemini-2.0-flash";
   
   const prompt = `
     Analyze this golf scorecard image. 

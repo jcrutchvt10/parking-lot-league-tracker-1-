@@ -50,6 +50,7 @@ export default function App() {
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchData = async () => {
     if (!user) return;
@@ -110,6 +111,12 @@ export default function App() {
       totalGIRs: u.totalGIRs
     })).sort((a, b) => b.points - a.points);
   }, [allUsers]);
+
+  const filteredUsers = useMemo(() => {
+    if (!searchQuery.trim()) return allUsers;
+    const q = searchQuery.toLowerCase();
+    return allUsers.filter(u => u.displayName.toLowerCase().includes(q));
+  }, [allUsers, searchQuery]);
 
   const selectedPlayer = useMemo(() => 
     selectedPlayerId ? allUsers.find(u => u.uid === selectedPlayerId) : null
@@ -268,7 +275,7 @@ export default function App() {
                 </>
               )}
             </h2>
-            <p className="text-gray-500 text-sm">Wednesday, March 18, 2026</p>
+            <p className="text-gray-500 text-sm">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="relative">
@@ -276,6 +283,8 @@ export default function App() {
               <input 
                 type="text" 
                 placeholder="Search players..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all w-full md:w-64"
               />
             </div>
@@ -640,7 +649,7 @@ export default function App() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
                 >
-                  {allUsers.map(player => {
+                  {filteredUsers.map(player => {
                     const s = standings.find(st => st.uid === player.uid)!;
                     return (
                       <div 
