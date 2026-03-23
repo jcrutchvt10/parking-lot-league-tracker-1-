@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: parking-lot-league-tracker
+    name: parking-lot-league-public
     runtime: node
     plan: free
     branch: main
@@ -13,3 +13,18 @@ services:
         value: production
       - key: PUBLIC_READ_ONLY
         value: "true"
+
+  - type: web
+    name: parking-lot-league-admin
+    runtime: node
+    plan: free
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /
+    buildCommand: npm install; npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUBLIC_READ_ONLY
+        value: "false"

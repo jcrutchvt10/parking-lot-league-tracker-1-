@@ -17,9 +17,12 @@ Prerequisites: Node.js 20+
 3. Open:
    `http://localhost:3000`
 
-## Public Read-Only Hosting (Free)
+## Render Dual-URL Hosting
 
-This repo is now configured for a free Render web service with a public, view-only URL.
+This repo is configured to deploy two Render web services from one blueprint:
+
+- Public league URL: read-only for everyone
+- Admin URL: normal login/editing for league admins
 
 ### What read-only mode does
 
@@ -31,16 +34,20 @@ This repo is now configured for a free Render web service with a public, view-on
 ### Deploy on Render
 
 1. Push this repo to GitHub.
-2. Sign in at Render and create a new Web Service from your repo.
-3. Render will detect `render.yaml` and apply these settings automatically:
-   - Build: `npm install; npm run build`
-   - Start: `npm run start`
-   - Env:
-     - `NODE_ENV=production`
-     - `PUBLIC_READ_ONLY=true`
-4. Wait for deploy to finish, then copy the generated Render URL.
+2. Sign in at Render and create a new Blueprint from your repo.
+3. Render will detect `render.yaml` and create both services automatically:
+   - `parking-lot-league-public` with `PUBLIC_READ_ONLY=true`
+   - `parking-lot-league-admin` with `PUBLIC_READ_ONLY=false`
+4. Wait for deploys to finish and copy both generated URLs.
+
+### How to use the two URLs
+
+- Share only the `parking-lot-league-public` URL with league members.
+- Use the `parking-lot-league-admin` URL for admin updates and score entry.
+- Both services auto-update whenever you push to `main`.
 
 ## Notes
 
-- In read-only public mode, database writes are intentionally rejected.
-- If you want private admin editing later, create a separate non-public deployment with `PUBLIC_READ_ONLY=false`.
+- In read-only public mode, login and write actions are intentionally rejected.
+- The admin service keeps normal login + edit capabilities.
+- Free-tier limits can vary by provider account and region.
