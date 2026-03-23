@@ -8,24 +8,27 @@
 }
 
 :root {
-  /* Material-inspired dynamic color roles seeded for league greens. */
-  --md-sys-color-primary: #136c4a;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #a8f2cb;
-  --md-sys-color-on-primary-container: #002114;
-  --md-sys-color-secondary: #4d6357;
-  --md-sys-color-secondary-container: #d0e8d8;
-  --md-sys-color-tertiary: #3d6376;
-  --md-sys-color-tertiary-container: #c0e9ff;
-  --md-sys-color-background: #f4fbf5;
-  --md-sys-color-surface: #f7faf6;
-  --md-sys-color-surface-container-low: #f0f5ef;
-  --md-sys-color-surface-container: #e8eee7;
-  --md-sys-color-surface-container-high: #dfe6de;
-  --md-sys-color-on-surface: #161d18;
-  --md-sys-color-on-surface-variant: #3f4a42;
-  --md-sys-color-outline: #6f7d72;
-  --md-sys-color-outline-variant: #bcc9be;
+  --dynamic-hue: 142;
+  --dynamic-accent: 176;
+
+  /* Runtime-adaptive Material-inspired roles. */
+  --md-sys-color-primary: hsl(var(--dynamic-hue) 70% 30%);
+  --md-sys-color-on-primary: hsl(0 0% 100%);
+  --md-sys-color-primary-container: hsl(var(--dynamic-hue) 74% 83%);
+  --md-sys-color-on-primary-container: hsl(var(--dynamic-hue) 85% 14%);
+  --md-sys-color-secondary: hsl(calc(var(--dynamic-hue) - 8) 18% 38%);
+  --md-sys-color-secondary-container: hsl(calc(var(--dynamic-hue) - 6) 32% 88%);
+  --md-sys-color-tertiary: hsl(var(--dynamic-accent) 32% 40%);
+  --md-sys-color-tertiary-container: hsl(var(--dynamic-accent) 72% 88%);
+  --md-sys-color-background: hsl(calc(var(--dynamic-hue) - 10) 30% 96%);
+  --md-sys-color-surface: hsl(calc(var(--dynamic-hue) - 8) 26% 97%);
+  --md-sys-color-surface-container-low: hsl(calc(var(--dynamic-hue) - 6) 22% 94%);
+  --md-sys-color-surface-container: hsl(calc(var(--dynamic-hue) - 6) 20% 91%);
+  --md-sys-color-surface-container-high: hsl(calc(var(--dynamic-hue) - 6) 16% 88%);
+  --md-sys-color-on-surface: hsl(calc(var(--dynamic-hue) - 6) 20% 12%);
+  --md-sys-color-on-surface-variant: hsl(calc(var(--dynamic-hue) - 6) 12% 31%);
+  --md-sys-color-outline: hsl(calc(var(--dynamic-hue) - 6) 10% 47%);
+  --md-sys-color-outline-variant: hsl(calc(var(--dynamic-hue) - 6) 18% 78%);
   --md-sys-color-error: #ba1a1a;
 
   --m3-elevation-1: 0 1px 3px rgba(15, 31, 22, 0.08), 0 1px 2px rgba(15, 31, 22, 0.16);
@@ -35,10 +38,34 @@
   --m3-state-press: rgba(19, 108, 74, 0.14);
 }
 
+:root[data-theme='dark'] {
+  --md-sys-color-primary: hsl(var(--dynamic-hue) 58% 72%);
+  --md-sys-color-on-primary: hsl(calc(var(--dynamic-hue) - 12) 52% 12%);
+  --md-sys-color-primary-container: hsl(var(--dynamic-hue) 48% 26%);
+  --md-sys-color-on-primary-container: hsl(var(--dynamic-hue) 70% 88%);
+  --md-sys-color-secondary: hsl(calc(var(--dynamic-hue) - 6) 20% 70%);
+  --md-sys-color-secondary-container: hsl(calc(var(--dynamic-hue) - 6) 22% 24%);
+  --md-sys-color-tertiary: hsl(var(--dynamic-accent) 40% 72%);
+  --md-sys-color-tertiary-container: hsl(var(--dynamic-accent) 34% 24%);
+  --md-sys-color-background: hsl(calc(var(--dynamic-hue) - 8) 22% 9%);
+  --md-sys-color-surface: hsl(calc(var(--dynamic-hue) - 8) 20% 12%);
+  --md-sys-color-surface-container-low: hsl(calc(var(--dynamic-hue) - 8) 18% 15%);
+  --md-sys-color-surface-container: hsl(calc(var(--dynamic-hue) - 8) 16% 18%);
+  --md-sys-color-surface-container-high: hsl(calc(var(--dynamic-hue) - 8) 14% 22%);
+  --md-sys-color-on-surface: hsl(calc(var(--dynamic-hue) - 8) 18% 90%);
+  --md-sys-color-on-surface-variant: hsl(calc(var(--dynamic-hue) - 8) 14% 78%);
+  --md-sys-color-outline: hsl(calc(var(--dynamic-hue) - 8) 10% 62%);
+  --md-sys-color-outline-variant: hsl(calc(var(--dynamic-hue) - 8) 12% 33%);
+
+  --m3-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.42), 0 1px 2px rgba(0, 0, 0, 0.5);
+  --m3-elevation-2: 0 3px 8px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.42);
+  --m3-elevation-3: 0 12px 24px rgba(0, 0, 0, 0.48), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 body {
   background:
-    radial-gradient(1200px 600px at -10% -20%, rgba(168, 242, 203, 0.36), transparent 60%),
-    radial-gradient(800px 500px at 110% -10%, rgba(192, 233, 255, 0.28), transparent 60%),
+    radial-gradient(1200px 600px at -10% -20%, color-mix(in srgb, var(--md-sys-color-primary-container) 60%, transparent 40%), transparent 60%),
+    radial-gradient(800px 500px at 110% -10%, color-mix(in srgb, var(--md-sys-color-tertiary-container) 52%, transparent 48%), transparent 62%),
     var(--md-sys-color-background);
   color: var(--md-sys-color-on-surface);
   font-family: var(--font-sans);
@@ -131,7 +158,11 @@ body {
 }
 
 .m3-filled-button {
-  background: linear-gradient(135deg, #136c4a 0%, #1b7f59 100%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--md-sys-color-primary) 92%, black 8%) 0%,
+    color-mix(in srgb, var(--md-sys-color-primary) 78%, var(--md-sys-color-tertiary) 22%) 100%
+  );
   color: var(--md-sys-color-on-primary);
   box-shadow: var(--m3-elevation-2);
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;

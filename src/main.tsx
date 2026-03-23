@@ -4,6 +4,11 @@ import App from './App.tsx';
 import './index.css';
 import { AuthProvider } from './components/AuthProvider';
 import ErrorBoundary from './components/ErrorBoundary';
+import { registerServiceWorker } from './pwa';
+import { initializeAdaptiveVisuals } from './adaptiveVisuals';
+
+registerServiceWorker();
+initializeAdaptiveVisuals();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

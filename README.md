@@ -51,3 +51,16 @@ This repo is configured to deploy two Render web services from one blueprint:
 - In read-only public mode, login and write actions are intentionally rejected.
 - The admin service keeps normal login + edit capabilities.
 - Free-tier limits can vary by provider account and region.
+
+## PWA Install (iOS and Android)
+
+This app is configured as a Progressive Web App (PWA) with a manifest, service worker, and install assets.
+
+- Android/Chrome: open the app URL and tap "Install App" from the in-app install banner.
+- iPhone/iPad/Safari: open the app URL, tap Share, then "Add to Home Screen".
+- Installed app behavior: launches in standalone mode with app icon and adaptive visuals.
+
+## Adaptive Visuals
+
+- The color system adapts to light/dark mode automatically.
+- Accent hues shift dynamically over time for a living, context-aware visual style.

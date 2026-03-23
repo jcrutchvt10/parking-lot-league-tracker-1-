@@ -22,7 +22,9 @@ import {
   CloudSun,
   Wind,
   MapPin,
-  ExternalLink
+  ExternalLink,
+  Download,
+  Share2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useAuth } from './components/AuthProvider';
@@ -39,6 +41,7 @@ import {
   AreaChart,
   Area
 } from 'recharts';
+import { getInstallContext, onInstallAvailabilityChange, promptInstallApp } from './pwa';
 
 // Helper to calculate rolling average of last 5 rounds
 const calculateRollingAverage = (rounds: Round[]) => {
@@ -71,6 +74,9 @@ export default function App() {
   const [historySortDir, setHistorySortDir] = useState<'asc' | 'desc'>('desc');
   const [scheduleData, setScheduleData] = useState<ScheduleData | null>(null);
   const [courseConditions, setCourseConditions] = useState<CourseConditionsResponse | null>(null);
+  const [canInstallPwa, setCanInstallPwa] = useState(false);
+  const [showIosInstallHint, setShowIosInstallHint] = useState(false);
+  const [installFeedback, setInstallFeedback] = useState('');
 
   const fetchData = async () => {
     if (!user) return;
@@ -115,6 +121,13 @@ export default function App() {
   useEffect(() => {
     fetchData();
   }, [user]);
+
+  useEffect(() => {
+    const uninstall = onInstallAvailabilityChange(setCanInstallPwa);
+    const context = getInstallContext();
+    setShowIosInstallHint(context.isIos && !context.isStandalone);
+    return uninstall;
+  }, []);
 
   useEffect(() => {
     if (!selectedHistoryYear && historyYears.length > 0) {
@@ -167,6 +180,11 @@ export default function App() {
     } catch (error) {
       console.error('Error saving round:', error);
     }
+  };
+
+  const handleInstallClick = async () => {
+    const installed = await promptInstallApp();
+    setInstallFeedback(installed ? 'App installed. You can launch it from your home screen.' : 'Install prompt dismissed.');
   };
 
   const standings: Standing[] = useMemo(() => {
@@ -462,6 +480,36 @@ export default function App() {
             )}
           </div>
         </header>
+
+        {(canInstallPwa || showIosInstallHint) && (
+          <div className="m3-tonal-banner mb-6 rounded-2xl px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <div className="mt-0.5">
+                {showIosInstallHint ? <Share2 size={18} /> : <Download size={18} />}
+              </div>
+              <div>
+                <p className="text-sm font-semibold">Install this app on your device</p>
+                <p className="text-xs opacity-90">
+                  {showIosInstallHint
+                    ? 'On iPhone/iPad: tap Share, then Add to Home Screen.'
+                    : 'Install for quick access and an app-like experience.'}
+                </p>
+              </div>
+            </div>
+            {canInstallPwa && (
+              <button
+                onClick={handleInstallClick}
+                className="m3-filled-button px-4 py-2 rounded-full text-sm font-semibold w-full md:w-auto"
+              >
+                Install App
+              </button>
+            )}
+          </div>
+        )}
+
+        {installFeedback && (
+          <div className="mb-4 text-xs text-emerald-700 font-semibold">{installFeedback}</div>
+        )}
 
         {isReadOnlyMode && (
           <div className="m3-tonal-banner mb-6 rounded-2xl px-4 py-3 text-sm">
