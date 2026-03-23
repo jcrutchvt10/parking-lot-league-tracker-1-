@@ -2,8 +2,8 @@
   "users": [
     {
       "uid": "joe-s",
-      "username": "joe-s",
-      "password": "$2b$10$UuTptBwAvFswTL5p45Wh3unO4MERv2YqLK8dvdXGeg.5KhC8/G.HC",
+      "username": "Joe$",
+      "password": "$2b$10$A0p0pqzSNPUXNILf48DlXu3gtksfh8ADmUiuW6lMk0g3iaaVvsRd2",
       "displayName": "Joe$",
       "photoURL": "",
       "role": "admin",
