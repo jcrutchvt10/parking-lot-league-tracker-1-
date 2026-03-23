@@ -51,6 +51,7 @@ const cToF = (c: number) => ((c * 9) / 5) + 32;
 
 export default function App() {
   const { user, profile, loading, login, logout, refreshProfile } = useAuth();
+  const isReadOnlyMode = profile?.role === 'viewer';
   const [activeTab, setActiveTab] = useState<'dashboard' | 'standings' | 'players' | 'rounds' | 'schedule' | 'handicap-window' | 'history'>('dashboard');
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [isScoreModalOpen, setIsScoreModalOpen] = useState(false);
@@ -147,6 +148,10 @@ export default function App() {
   };
 
   const handleSaveRound = async (roundData: Omit<Round, 'id'>) => {
+    if (isReadOnlyMode) {
+      return;
+    }
+
     try {
       const response = await fetch('/api/rounds', {
         method: 'POST',
@@ -407,9 +412,11 @@ export default function App() {
               <p className="text-xs font-bold truncate">{profile?.displayName}</p>
               <p className="text-[10px] text-gray-500 truncate capitalize">{profile?.role}</p>
             </div>
-            <button onClick={logout} className="p-2 text-gray-400 hover:text-red-500 transition-colors">
-              <LogOut size={16} />
-            </button>
+            {!isReadOnlyMode && (
+              <button onClick={logout} className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                <LogOut size={16} />
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -444,15 +451,23 @@ export default function App() {
                 className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all w-full md:w-64"
               />
             </div>
-            <button 
-              onClick={() => setIsScoreModalOpen(true)}
-              className="bg-emerald-700 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-emerald-800 transition-colors shadow-lg shadow-emerald-700/20 flex items-center gap-2"
-            >
-              <Plus size={16} />
-              Add Round
-            </button>
+            {!isReadOnlyMode && (
+              <button 
+                onClick={() => setIsScoreModalOpen(true)}
+                className="bg-emerald-700 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-emerald-800 transition-colors shadow-lg shadow-emerald-700/20 flex items-center gap-2"
+              >
+                <Plus size={16} />
+                Add Round
+              </button>
+            )}
           </div>
         </header>
+
+        {isReadOnlyMode && (
+          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Public view mode is enabled. Data can be viewed, but edits are disabled for everyone.
+          </div>
+        )}
 
         <AnimatePresence mode="wait">
           {selectedPlayerId ? (
@@ -1236,15 +1251,17 @@ export default function App() {
             </>
           )}
         </AnimatePresence>
-        <ScoreEntryModal 
-          isOpen={isScoreModalOpen}
-          onClose={() => setIsScoreModalOpen(false)}
-          players={allUsers}
-          currentUser={profile}
-          leagueConfig={leagueConfig}
-          weeklyDefaults={Object.fromEntries((scheduleData?.weeks || []).map((w) => [w.week, w.resolvedDefault])) as Record<number, 'front' | 'back'>}
-          onSave={handleSaveRound}
-        />
+        {!isReadOnlyMode && (
+          <ScoreEntryModal 
+            isOpen={isScoreModalOpen}
+            onClose={() => setIsScoreModalOpen(false)}
+            players={allUsers}
+            currentUser={profile}
+            leagueConfig={leagueConfig}
+            weeklyDefaults={Object.fromEntries((scheduleData?.weeks || []).map((w) => [w.week, w.resolvedDefault])) as Record<number, 'front' | 'back'>}
+            onSave={handleSaveRound}
+          />
+        )}
       </main>
     </div>
   );

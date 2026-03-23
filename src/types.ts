@@ -1,4 +1,4 @@
-export type UserRole = 'admin' | 'player';
+export type UserRole = 'admin' | 'player' | 'viewer';
 
 export interface UserProfile {
   uid: string;

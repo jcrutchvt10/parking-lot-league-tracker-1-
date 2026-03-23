@@ -91,6 +91,9 @@ const DEFAULT_LEAGUE_CONFIG = {
   }
 };
 
+const PUBLIC_READ_ONLY = process.env.PUBLIC_READ_ONLY === 'true';
+const PUBLIC_VIEWER_UID = '__public_viewer__';
+
 function readDb() {
   const data = fs.readFileSync(dbPath, 'utf-8');
   return JSON.parse(data);
@@ -212,10 +215,37 @@ function ensureLeagueConfig() {
   writeDb(db);
 }
 
+function buildPublicViewer() {
+  return {
+    uid: PUBLIC_VIEWER_UID,
+    email: 'public@viewer.local',
+    displayName: 'Public Viewer',
+    photoURL: 'https://ui-avatars.com/api/?name=Public+Viewer',
+    role: 'viewer',
+    handicap: 0,
+    totalRounds: 0,
+    avgScore: 0,
+    totalPutts: 0,
+    totalFairways: 0,
+    totalGIRs: 0,
+    points: 0,
+    matchesWon: 0,
+    matchesTied: 0,
+    matchesLost: 0
+  };
+}
+
 function getSessionUser(req: any) {
   if (!req.session?.userId) return null;
   const db = readDb();
   return db.users.find((u: any) => u.uid === req.session.userId) || null;
+}
+
+function getAuthUser(req: any) {
+  const sessionUser = getSessionUser(req);
+  if (sessionUser) return sessionUser;
+  if (PUBLIC_READ_ONLY) return buildPublicViewer();
+  return null;
 }
 
 function buildRoundRobinWeeks(users: any[]) {
@@ -583,14 +613,28 @@ async function startServer() {
 
   // Auth Middleware
   const requireAuth = (req: any, res: any, next: any) => {
-    if (!req.session.userId) {
+    const authUser = getAuthUser(req);
+    if (!authUser) {
       return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    req.authUser = authUser;
+    next();
+  };
+
+  const requireWritable = (req: any, res: any, next: any) => {
+    if (PUBLIC_READ_ONLY) {
+      return res.status(403).json({ error: 'Public deployment is read-only' });
     }
     next();
   };
 
   // API Routes
   app.post('/api/login', (req, res) => {
+    if (PUBLIC_READ_ONLY) {
+      return res.status(403).json({ error: 'Public deployment is read-only' });
+    }
+
     const { username, password } = req.body;
     const db = readDb();
     const user = db.users.find((u: any) => u.username === username);
@@ -605,23 +649,23 @@ async function startServer() {
   });
 
   app.post('/api/logout', (req, res) => {
+    if (PUBLIC_READ_ONLY) {
+      return res.status(403).json({ error: 'Public deployment is read-only' });
+    }
+
     req.session.destroy(() => {
       res.json({ success: true });
     });
   });
 
   app.get('/api/me', (req, res) => {
-    if (!req.session.userId) {
+    const user = getAuthUser(req);
+    if (!user) {
       return res.status(401).json({ error: 'Not logged in' });
     }
-    const db = readDb();
-    const user = db.users.find((u: any) => u.uid === req.session.userId);
-    if (user) {
-      const { password: _, ...userWithoutPassword } = user;
-      res.json(userWithoutPassword);
-    } else {
-      res.status(404).json({ error: 'User not found' });
-    }
+
+    const { password: _, ...userWithoutPassword } = user;
+    res.json(userWithoutPassword);
   });
 
   app.get('/api/users', requireAuth, (req, res) => {
@@ -739,8 +783,8 @@ async function startServer() {
     res.json(db.season);
   };
 
-  app.post('/api/season/kickoff', requireAuth, kickoffSeason);
-  app.post('/api/season/kickoff-2026', requireAuth, kickoffSeason);
+  app.post('/api/season/kickoff', requireAuth, requireWritable, kickoffSeason);
+  app.post('/api/season/kickoff-2026', requireAuth, requireWritable, kickoffSeason);
 
   app.get('/api/rounds', requireAuth, (req, res) => {
     const db = readDb();
@@ -759,7 +803,7 @@ async function startServer() {
     res.json(buildSchedulePayload(db));
   });
 
-  app.post('/api/schedule/week-default', requireAuth, (req, res) => {
+  app.post('/api/schedule/week-default', requireAuth, requireWritable, (req, res) => {
     const authUser = getSessionUser(req);
     if (!authUser || authUser.role !== 'admin') {
       return res.status(403).json({ error: 'Admin access required' });
@@ -780,7 +824,7 @@ async function startServer() {
     res.json(buildYearHistory(db, year));
   });
 
-  app.post('/api/rounds', requireAuth, (req, res) => {
+  app.post('/api/rounds', requireAuth, requireWritable, (req, res) => {
     const db = readDb();
     const leagueConfig = db.leagueConfig || DEFAULT_LEAGUE_CONFIG;
     const holePoints = roundToNearestHalf(req.body.holePoints || 0);
