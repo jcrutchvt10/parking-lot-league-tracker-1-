@@ -3,6 +3,9 @@ services:
     name: parking-lot-league-tracker
     runtime: node
     plan: free
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /
     buildCommand: npm install; npm run build
     startCommand: npm run start
     envVars:
