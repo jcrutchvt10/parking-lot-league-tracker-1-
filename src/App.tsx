@@ -264,7 +264,7 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="m3-app min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin" />
           <p className="text-emerald-700 font-bold animate-pulse">Loading League Data...</p>
@@ -275,11 +275,11 @@ export default function App() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+      <div className="m3-app min-h-screen flex items-center justify-center bg-gray-50 p-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-emerald-900/10 max-w-md w-full text-center border border-gray-100"
+          className="m3-card p-10 rounded-[2rem] max-w-md w-full text-center"
         >
           <div className="w-20 h-20 bg-emerald-700 rounded-3xl flex items-center justify-center text-white shadow-xl shadow-emerald-700/30 mx-auto mb-8">
             <Target size={40} />
@@ -296,7 +296,7 @@ export default function App() {
                   type="text" 
                   value={loginUsername}
                   onChange={(e) => setLoginUsername(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                  className="m3-input w-full pl-12 pr-4 py-3"
                   placeholder="Enter username"
                   required
                 />
@@ -310,7 +310,7 @@ export default function App() {
                   type="password" 
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                  className="m3-input w-full pl-12 pr-4 py-3"
                   placeholder="Enter password"
                   required
                 />
@@ -323,7 +323,7 @@ export default function App() {
 
             <button 
               type="submit"
-              className="w-full bg-emerald-700 text-white py-4 rounded-2xl font-bold hover:bg-emerald-800 transition-all shadow-lg shadow-emerald-700/20 flex items-center justify-center gap-2"
+              className="m3-filled-button w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2"
             >
               <LogIn size={20} />
               Sign In
@@ -343,9 +343,9 @@ export default function App() {
   const latestRound = userRounds[0];
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="m3-app min-h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
-      <nav className="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col gap-8 z-10">
+      <nav className="m3-nav w-full md:w-64 bg-white border-r border-gray-200 p-6 flex flex-col gap-8 z-10">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-emerald-700 rounded-lg flex items-center justify-center text-white shadow-lg shadow-emerald-700/20">
             <Target size={24} />
@@ -448,13 +448,13 @@ export default function App() {
                 placeholder="Search players..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all w-full md:w-64"
+                className="m3-input pl-10 pr-4 py-2 rounded-full text-sm w-full md:w-64"
               />
             </div>
             {!isReadOnlyMode && (
               <button 
                 onClick={() => setIsScoreModalOpen(true)}
-                className="bg-emerald-700 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-emerald-800 transition-colors shadow-lg shadow-emerald-700/20 flex items-center gap-2"
+                className="m3-filled-button px-6 py-2 rounded-full text-sm font-medium flex items-center gap-2"
               >
                 <Plus size={16} />
                 Add Round
@@ -464,7 +464,7 @@ export default function App() {
         </header>
 
         {isReadOnlyMode && (
-          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <div className="m3-tonal-banner mb-6 rounded-2xl px-4 py-3 text-sm">
             Public view mode is enabled. Data can be viewed, but edits are disabled for everyone.
           </div>
         )}
@@ -1271,9 +1271,9 @@ function NavItem({ active, onClick, icon, label }: { active: boolean, onClick: (
   return (
     <button 
       onClick={onClick}
-      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+      className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all ${
         active 
-          ? 'bg-emerald-50 text-emerald-700' 
+          ? 'bg-emerald-50 text-emerald-700 shadow-sm' 
           : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
       }`}
     >
@@ -1285,7 +1285,7 @@ function NavItem({ active, onClick, icon, label }: { active: boolean, onClick: (
 
 function StatCard({ label, value, subValue, icon }: { label: string, value: string, subValue: string, icon: ReactNode }) {
   return (
-    <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm">
+    <div className="m3-card p-6">
       <div className="flex items-center justify-between mb-4">
         <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{label}</p>
         {icon}

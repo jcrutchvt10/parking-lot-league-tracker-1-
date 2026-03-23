@@ -219,11 +219,11 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
   const isAdmin = currentUser?.role === 'admin';
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl"
+        className="m3-modal-surface rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
       >
         <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-emerald-900 text-white">
           <div>
@@ -243,7 +243,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
                 value={selectedPlayerUid}
                 onChange={(e) => handlePlayerChange(e.target.value)}
                 disabled={!isAdmin}
-                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all disabled:opacity-50"
+                className="m3-input w-full p-3 disabled:opacity-50"
                 required
               >
                 {!isAdmin && <option value={currentUser?.uid}>{currentUser?.displayName}</option>}
@@ -265,7 +265,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
                 max="30"
                 value={roundNum}
                 onChange={(e) => handleWeekChange(Number(e.target.value) || 1)}
-                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                className="m3-input w-full p-3"
               />
               <p className="text-[10px] text-gray-400">Default nine auto-fills from schedule; you can override for make-up rounds.</p>
             </div>
@@ -279,7 +279,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
                     onClick={() => handleNineChange(nine)}
                     className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
                       ninePlayed === nine
-                        ? 'bg-emerald-700 text-white border-emerald-700'
+                        ? 'bg-emerald-700 text-white border-emerald-700 shadow-sm'
                         : 'bg-gray-50 text-gray-400 border-gray-200 hover:border-emerald-500'
                     }`}
                   >
@@ -298,7 +298,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
                     onClick={() => setMatchResult(res)}
                     className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all border ${
                       matchResult === res 
-                        ? 'bg-emerald-700 text-white border-emerald-700' 
+                        ? 'bg-emerald-700 text-white border-emerald-700 shadow-sm' 
                         : 'bg-gray-50 text-gray-400 border-gray-200 hover:border-emerald-500'
                     }`}
                   >
@@ -316,7 +316,7 @@ export default function ScoreEntryModal({ isOpen, onClose, players, currentUser,
                 max="9"
                 value={holePoints}
                 onChange={(e) => setHolePoints(Number(e.target.value))}
-                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all"
+                className="m3-input w-full p-3"
               />
             </div>
           </div>

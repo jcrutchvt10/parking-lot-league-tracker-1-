@@ -1,36 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400..700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Roboto Flex", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-display: "Playfair Display", serif;
+  --font-display: "Space Grotesk", "Roboto Flex", sans-serif;
 }
 
 :root {
-  --bg: #F8F9FA;
-  --ink: #1A1A1A;
-  --accent: #2D5A27; /* Golf Green */
-  --line: #E5E7EB;
+  /* Material-inspired dynamic color roles seeded for league greens. */
+  --md-sys-color-primary: #136c4a;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #a8f2cb;
+  --md-sys-color-on-primary-container: #002114;
+  --md-sys-color-secondary: #4d6357;
+  --md-sys-color-secondary-container: #d0e8d8;
+  --md-sys-color-tertiary: #3d6376;
+  --md-sys-color-tertiary-container: #c0e9ff;
+  --md-sys-color-background: #f4fbf5;
+  --md-sys-color-surface: #f7faf6;
+  --md-sys-color-surface-container-low: #f0f5ef;
+  --md-sys-color-surface-container: #e8eee7;
+  --md-sys-color-surface-container-high: #dfe6de;
+  --md-sys-color-on-surface: #161d18;
+  --md-sys-color-on-surface-variant: #3f4a42;
+  --md-sys-color-outline: #6f7d72;
+  --md-sys-color-outline-variant: #bcc9be;
+  --md-sys-color-error: #ba1a1a;
+
+  --m3-elevation-1: 0 1px 3px rgba(15, 31, 22, 0.08), 0 1px 2px rgba(15, 31, 22, 0.16);
+  --m3-elevation-2: 0 3px 6px rgba(15, 31, 22, 0.12), 0 1px 3px rgba(15, 31, 22, 0.12);
+  --m3-elevation-3: 0 10px 22px rgba(15, 31, 22, 0.12), 0 4px 10px rgba(15, 31, 22, 0.08);
+  --m3-state-hover: rgba(19, 108, 74, 0.08);
+  --m3-state-press: rgba(19, 108, 74, 0.14);
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at -10% -20%, rgba(168, 242, 203, 0.36), transparent 60%),
+    radial-gradient(800px 500px at 110% -10%, rgba(192, 233, 255, 0.28), transparent 60%),
+    var(--md-sys-color-background);
+  color: var(--md-sys-color-on-surface);
   font-family: var(--font-sans);
+  min-height: 100vh;
 }
 
 .data-row {
-  transition: background 0.2s ease;
+  transition: background 0.24s ease, transform 0.24s ease;
 }
 
 .data-row:hover {
-  background: rgba(45, 90, 39, 0.05);
+  background: var(--m3-state-hover);
+  transform: translateY(-1px);
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 74%, white 26%);
+  backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 72%, transparent 28%);
+  box-shadow: var(--m3-elevation-1);
+}
+
+.m3-app {
+  color: var(--md-sys-color-on-surface);
+}
+
+.m3-app .bg-white {
+  background-color: var(--md-sys-color-surface);
+}
+
+.m3-app .bg-gray-50,
+.m3-app .bg-gray-50\/50 {
+  background-color: var(--md-sys-color-surface-container-low);
+}
+
+.m3-app .border-gray-200,
+.m3-app .border-gray-100,
+.m3-app .border-gray-50 {
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+.m3-app .text-gray-500,
+.m3-app .text-gray-600,
+.m3-app .text-gray-400 {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.m3-app .text-emerald-700,
+.m3-app .text-emerald-600 {
+  color: var(--md-sys-color-primary);
+}
+
+.m3-app .bg-emerald-700,
+.m3-app .bg-emerald-800,
+.m3-app .bg-emerald-900 {
+  background-color: var(--md-sys-color-primary);
+}
+
+.m3-app .shadow-sm,
+.m3-app .shadow-lg,
+.m3-app .shadow-xl,
+.m3-app .shadow-2xl {
+  box-shadow: var(--m3-elevation-2);
+}
+
+.m3-card {
+  background: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--m3-elevation-1);
+  border-radius: 1.5rem;
+}
+
+.m3-nav {
+  background: color-mix(in srgb, var(--md-sys-color-surface) 88%, white 12%);
+  backdrop-filter: blur(8px);
+}
+
+.m3-input {
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.m3-input:focus {
+  outline: none;
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 4px rgba(19, 108, 74, 0.16);
+  background: var(--md-sys-color-surface);
+}
+
+.m3-filled-button {
+  background: linear-gradient(135deg, #136c4a 0%, #1b7f59 100%);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--m3-elevation-2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.m3-filled-button:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+  box-shadow: var(--m3-elevation-3);
+}
+
+.m3-filled-button:active {
+  transform: translateY(0);
+}
+
+.m3-tonal-banner {
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 24%, transparent 76%);
+  background: color-mix(in srgb, var(--md-sys-color-primary-container) 56%, white 44%);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.m3-modal-surface {
+  background: color-mix(in srgb, var(--md-sys-color-surface) 84%, white 16%);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: var(--m3-elevation-3);
+}
+
+.m3-app button {
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .data-row,
+  .m3-filled-button,
+  .m3-app button {
+    transition: none;
+  }
 }
 
